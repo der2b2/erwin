@@ -36,7 +36,7 @@ for images in os.listdir('assets/img'):
         new_image = Image.open(file_path)
         new_image.thumbnail((sizes,sizes))
         image_file_path = 'output/img/{name}-{size}.jpg'.format(name=image_name, size=sizes)
-        new_image.save(image_file_path)
+        new_image.save(image_file_path, quality=60, optimize=True)
         
         
 

@@ -5,6 +5,7 @@ from markdown2 import markdown
 import configparser
 import sass
 import rcssmin
+from PIL import Image
 
 #initiate configs
 config = configparser.ConfigParser()
@@ -22,6 +23,23 @@ css_file_path = "output/css/main.css"
 os.makedirs(os.path.dirname(css_file_path), exist_ok=True)
 with open(css_file_path, 'w') as file:
     file.write(rcssmin.cssmin(css_string))
+
+#images
+os.makedirs(os.path.dirname('output/img/test.txt'), exist_ok=True)
+for images in os.listdir('assets/img'):
+    file_path = os.path.join('assets/img', images)
+
+    image_name = images.split(".")[0]
+
+    sizes_list = [350, 450, 600, 750, 850, 1050]
+    for sizes in sizes_list:
+        new_image = Image.open(file_path)
+        new_image.thumbnail((sizes,sizes))
+        image_file_path = 'output/img/{name}-{size}.jpg'.format(name=image_name, size=sizes)
+        new_image.save(image_file_path)
+        
+        
+
 
 # Reading Posts
 POSTS = {}

@@ -7,6 +7,11 @@
 {% block content %}
     
     <h1>{{ post.title }}</h1>
+    <picture>
+        <source media="(min-width:650px)" srcset="/img/{{ post.img }}">
+        <source media="(min-width:465px)" srcset="/img/{{ post.img }}">
+        <img src="/img/{{ post.img }}" alt="{{ post.title }}" style="width:100%;">
+    </picture>
     <small>{{ post.date }}</small>
     <p>
         {{ post.content }}

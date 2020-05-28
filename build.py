@@ -69,7 +69,8 @@ for post in POSTS:
         'title': post_metadata['title'],
         'date': post_metadata['date'],
         'summary': post_metadata['summary'],
-        'slug': post_metadata['slug']
+        'slug': post_metadata['slug'],
+        'img': post_metadata['img']
     }
 
     #render post

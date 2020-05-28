@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+{% block description %}{{post.summary}}{% endblock %}
+{% block canonical %}/{{site_meta.posts_pre_slug}}/{{post.slug}}/{% endblock %}
+
+{% block content %}
+    
+    <h1>{{ post.title }}</h1>
+    <small>{{ post.date }}</small>
+    <p>
+        {{ post.content }}
+    </p>
+
+{% endblock %}

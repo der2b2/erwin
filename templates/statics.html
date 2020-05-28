@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ static.title }}{% endblock %}
+{% block description %}{{static.summary}}{% endblock %}
+{% block canonical %}/{{static.slug}}/{% endblock %}
+
+{% block content %}
+    
+    <h1>{{ static.title }}</h1>
+    <p>
+        {{ static.content }}
+    </p>
+
+{% endblock %}

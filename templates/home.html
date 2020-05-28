@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %} Homepage {% endblock %}
+{% block description %}Homepage Metatea{% endblock %}
+
+{% block content %}
+    
+    <h1>My Recipes</h1>
+    {% for post in posts %}
+    <p>
+        <h2>{{loop.index}}: <a href="posts/{{ post.slug }}.html">{{post.title}}</a> <small>{{post.date}}</small></h2>
+        {{post.summary}}
+    </p>
+    {% endfor %}
+
+{% endblock %}

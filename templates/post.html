@@ -7,11 +7,16 @@
 {% block content %}
     
     <h1>{{ post.title }}</h1>
+
+    {% if post.img %}
     <picture>
-        <source media="(min-width:650px)" srcset="/img/{{ post.img }}">
-        <source media="(min-width:465px)" srcset="/img/{{ post.img }}">
-        <img src="/img/{{ post.img }}" alt="{{ post.title }}" style="width:100%;">
+        {% for size in image_sizes %}
+            <source media="(min-width:{{ size }}px)" srcset="/img/{{ post.img }}-{{size}}.jpg">
+        {% endfor %}
+        <img class="img-fluid img-thumbnail" src="/img/{{ post.img }}-{{image_sizes[-1]}}.jpg" alt="{{ post.title }}" style="width:100%;">
     </picture>
+    {% endif %}
+
     <small>{{ post.date }}</small>
     <p>
         {{ post.content }}

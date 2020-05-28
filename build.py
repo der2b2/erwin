@@ -17,6 +17,11 @@ site_meta = {
     'posts_pre_slug' : config['DEFAULT']['Posts Pre Slug']
 }
 
+#initiate site technical configs
+site_config = {
+    'image_sizes' : config['DEFAULT']['Image Sizes'].split(',')[::-1] #reversed images sizes!!
+}
+
 # Compile and write main.scss to main.css into output/css
 css_string = sass.compile(filename="assets/css/main.scss")
 css_file_path = "output/css/main.css"
@@ -31,16 +36,12 @@ for images in os.listdir('assets/img'):
 
     image_name = images.split(".")[0]
 
-    sizes_list = [350, 450, 600, 750, 850, 1050]
-    for sizes in sizes_list:
+    for image_size in site_config['image_sizes']:
         new_image = Image.open(file_path)
-        new_image.thumbnail((sizes,sizes))
-        image_file_path = 'output/img/{name}-{size}.jpg'.format(name=image_name, size=sizes)
+        new_image.thumbnail((int(image_size),int(image_size)))
+        image_file_path = 'output/img/{name}-{size}.jpg'.format(name=image_name, size=image_size)
         new_image.save(image_file_path, quality=60, optimize=True)
         
-        
-
-
 # Reading Posts
 POSTS = {}
 for markdown_post in os.listdir('content/posts'):
@@ -88,11 +89,11 @@ for post in POSTS:
         'date': post_metadata['date'],
         'summary': post_metadata['summary'],
         'slug': post_metadata['slug'],
-        'img': post_metadata['img']
+        'img': post_metadata['img'].split('.')[0]
     }
 
     #render post
-    post_html = post_template.render(post=post_data, site_meta=site_meta)
+    post_html = post_template.render(post=post_data, site_meta=site_meta, image_sizes=site_config['image_sizes'])
 
     post_file_path = 'output/{posts_pre_slug}/{slug}.html'.format(posts_pre_slug=site_meta['posts_pre_slug'], slug=post_metadata['slug'])
 

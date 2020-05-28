@@ -2,7 +2,7 @@
 title: Faux French Bread2
 date: 2020-05-18
 tags: Bread2
-img: test_image.jpg
+img: test2.jpg
 summary: Not quite french bread which has great taste and stays fresh for longer2.
 slug: french-bread2
 ---

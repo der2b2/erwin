@@ -1,9 +1,12 @@
 {% extends "layout.html" %}
 
+{% block title %} Homepage {% endblock %}
+{% block description %}Homepage Metatea{% endblock %}
+{% block canonical %}/{{tag.slug}}.html{% endblock %}
+
 {% block content %}
     
-
-    {% for post in posts %}
+{% for post in posts %}
         {% if loop.index0 % 3 == 0 %}
             <div class="row mb-4">
         {% endif %}
@@ -28,4 +31,5 @@
         {% endif %}
       {% endfor %}
     </div>
+    
 {% endblock %}

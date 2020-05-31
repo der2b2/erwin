@@ -11,6 +11,7 @@ markdown2 = "*"
 libsass = "*"
 rcssmin = "*"
 pillow = "*"
+tqdm = "*"
 
 [requires]
 python_version = "3.8"

@@ -1,13 +1,13 @@
 ---
-title: Faux French Bread
-date: 2019-04-17
-tags: Bread
-img: test_image.jpg
-summary: Not quite french bread which has great taste and stays fresh for longer.
-slug: french-bread
+title: Dies ist test3
+date: 2020-05-18
+tags: Bread2
+img: test2.jpg
+summary: Not quite french bread which has great taste and stays fresh for longer2.
+slug: test3
 ---
 
-__Ingredients__
+## Ingredients
 
 + 4 cups bread flour
 + 1 tblspoon yeast
@@ -16,6 +16,6 @@ __Ingredients__
 + 2 tblspoon oil
 + Water as required.
 
-__Preparation__
+## Preparation
 
 Mix all ingredients and knead until a slightly tacky dough forms. Cover and let rise until doubled in size. Divide into 4 equal portions. Roll each portion into a baguette shape. Let rise on a parchment covered baking sheet. Bake at 240C or until nicely browned.

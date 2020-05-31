@@ -4,28 +4,29 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="{% block description %}Description{% endblock %}">
-    <meta name="author" content="Bastian Schroeder">
-    <meta name="generator" content="Erwin 0.1">
-    <title>{% block title %}Erwin{% endblock %}</title>
+    <meta name="description" content="{% block description %}{{ site_meta.site_claim }}{% endblock %}">
+    <meta name="author" content="{{site_meta.author}}">
+    <meta name="generator" content="{{site_meta.generator}}">
+    <title>{% block title %}{{site_meta.site_name}}{% endblock %}</title>
 
     <!-- Canonical -->
     <link rel="canonical" href="{{site_meta.domain}}{% block canonical %}{% endblock %}">
 
-    <!-- Twitter card -->
-
-    <!-- Facebook Card -->
-
-    <!-- Manifest -->
+    <!-- Twitter Facebook card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content="{{site_meta.twitter}}" />
+    <meta property="og:url" content="{{site_meta.domain}}{{ self.canonical() }}" />
+    <meta property="og:title" content="{{ self.title() }}" />
+    <meta property="og:description" content="{{ self.description() }}" />
+    <meta property="og:image" content="{% block image %}{% endblock %}" />
+    <meta property="og:site_name" content="{{site_meta.site_name}}">
 
     <!-- Icons -->
 
     <!-- RSS -->
-
+    <link rel="alternate" type="application/rss+xml" href="/rss"/>
     <!-- Sitemap -->
-
-
-
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml"/>
     <!-- CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/main.css">
@@ -33,41 +34,68 @@
   </head>
   <body>
     <div class="container">
+        
         <header class="blog-header py-3">
-          <div class="row flex-nowrap justify-content-between align-items-center">
-            <div class="col-4 pt-1">
-              <a class="text-muted" href="#">Subscribe</a>
+            <div class="row flex-nowrap justify-content-between align-items-center">
+                <div class="col-4 pt-1">
+                    <a class="blog-header-logo text-dark" href="/">
+                        <img > Logo
+                    </a>
+                </div>
+                
+                <div class="col-4 d-flex justify-content-end align-items-center">
+                  Social Links
+                </div>
+              </div>
+            <div class="row flex-nowrap justify-content-between align-items-center">
+                
+                <div class="col-12 text-center">
+                <h1>Site Name</h1>
+                <h2>Site Claimerererer erer</h2>
+                </div>
+                
             </div>
-            <div class="col-4 text-center">
-              <a class="blog-header-logo text-dark" href="#">Large</a>
-            </div>
-            <div class="col-4 d-flex justify-content-end align-items-center">
-              <a class="text-muted" href="#" aria-label="Search">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24" focusable="false"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
-              </a>
-              <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>
-            </div>
-          </div>
-        </header>
+        
       
-        <div class="nav-scroller py-1 mb-2">
-          <nav class="nav d-flex justify-content-between">
-            <a class="p-2 text-muted" href="#">World</a>
-            <a class="p-2 text-muted" href="#">U.S.</a>
-            <a class="p-2 text-muted" href="#">Technology</a>
-            <a class="p-2 text-muted" href="#">Design</a>
-            <a class="p-2 text-muted" href="#">Culture</a>
-            <a class="p-2 text-muted" href="#">Business</a>
-            <a class="p-2 text-muted" href="#">Politics</a>
-            <a class="p-2 text-muted" href="#">Opinion</a>
-            <a class="p-2 text-muted" href="#">Science</a>
-            <a class="p-2 text-muted" href="#">Health</a>
-            <a class="p-2 text-muted" href="#">Style</a>
-            <a class="p-2 text-muted" href="#">Travel</a>
-          </nav>
-        </div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+            
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    {% for tager in site_meta.tags_nav %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/{{tager.slug}}.html">{{tager.name}}</a>
+                    </li>
+                    {% endfor %}
+                    {% for staticer in site_meta.statics_nav %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/{{staticer.slug}}.html">{{staticer.name}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                
+                </div>
+            </nav>
+        </header>
+    </div>
+    <div class="container">
     {% block content %} {% endblock %}
-
+    </div>
+    <div class="container">
+        <footer>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    Der Footer links
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    Der Footer rechts
+                </div>
+            </div>
+        </footer>
+    </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

@@ -211,6 +211,7 @@ def main():
     folder_list = [
         {'from':'assets/js', 'to':'output/js'},
         {'from':'assets/static', 'to':'output'},
+        {'from':'assets/fonts', 'to':'output/fonts'},
         {'from':'assets/static-img', 'to':'output/img'}
     ]
     for folder in tqdm(folder_list):

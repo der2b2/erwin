@@ -4,6 +4,10 @@
 {% block description %}Homepage Metatea{% endblock %}
 {% block canonical %}/{{tag.slug}}.html{% endblock %}
 
+{% block headline %}
+    <h1>{{tag.name}}</h1>
+    {% endblock %}
+
 {% block content %}
     
 {% for post in posts %}

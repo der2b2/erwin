@@ -1,12 +1,78 @@
-.selector {
-    a {
-        display: block;
+/* playfair-display-regular - latin */
+@font-face {
+    font-family: 'headerer';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/fonts/playfair-display-v20-latin-regular.eot'); /* IE9 Compat Modes */
+    src: local(''),
+         url('/fonts/playfair-display-v20-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('/fonts/playfair-display-v20-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+         url('/fonts/playfair-display-v20-latin-regular.woff') format('woff'), /* Modern Browsers */
+         url('/fonts/playfair-display-v20-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('/fonts/playfair-display-v20-latin-regular.svg#PlayfairDisplay') format('svg'); /* Legacy iOS */
+    font-display: swap;
+  }
+/* playfair-display-500 - latin */
+@font-face {
+    font-family: 'headerer';
+    font-style: normal;
+    font-weight: 500;
+    src: url('/fonts/playfair-display-v20-latin-500.eot'); /* IE9 Compat Modes */
+    src: local(''),
+        url('/fonts/playfair-display-v20-latin-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+        url('/fonts/playfair-display-v20-latin-500.woff2') format('woff2'), /* Super Modern Browsers */
+        url('/fonts/playfair-display-v20-latin-500.woff') format('woff'), /* Modern Browsers */
+        url('/fonts/playfair-display-v20-latin-500.ttf') format('truetype'), /* Safari, Android, iOS */
+        url('/fonts/playfair-display-v20-latin-500.svg#PlayfairDisplay') format('svg'); /* Legacy iOS */
+    font-display: swap;
+}
+
+body{
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+    text-rendering: optimizeLegibility;
+    background: #fff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -moz-font-feature-settings: "liga" on;
+}
+
+.blog-header {
+    background-image: url("../img/publication-cover.jpg"); /* The image used */
+    background-color: #333; /* Used if the image is unavailable */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+
+    h1 {
+        color: #fff;
+        font-family: headerer, Georgia, 'Times New Roman', Times, serif;
+        font-weight: 400;
     }
-    strong {
-        color: blue;
+
+    h2 {
+        color: #fff;
+        font-size: 22px;
+        opacity: 0.7;
+        font-weight: 400;
+    }
+
+    .blog-header-logo {
+        img {
+            width: 130px;
+        }
+    }
+
+    .navbar {
+        background: transparent;
+
+        .nav-link {
+            color: #fff;
+            opacity: 0.7;
+
+            &:hover {
+                opacity: 1.0;
+            }
+        }
     }
 }
 
-h2 {
-    font-size: 50px;
-}

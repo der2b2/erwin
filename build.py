@@ -1,4 +1,5 @@
 import os
+import shutil
 from datetime import datetime
 from jinja2 import Environment, PackageLoader
 from markdown2 import markdown
@@ -19,16 +20,16 @@ def sitemap_helper(url, lastmod, changefreq, priority):
 
     return url_string
 
-def generate_sitemap(domain,statics,posts, posts_pre_slug):
+def generate_sitemap(domain,pages,posts, posts_pre_slug):
     sitemap_string = """<?xml version="1.0" encoding="UTF-8"?>
         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">"""
 
     #Domain
     sitemap_string += sitemap_helper(domain, datetime.now().strftime('%Y-%m-%d'), "weekly", 1.0)
 
-    #STATICS
-    for staticc in statics:
-        sitemap_string += sitemap_helper("{}{}/{}".format(domain, "", statics[staticc].metadata['slug']), statics[staticc].metadata['date'], "monthly", 0.5)
+    #PAGES
+    for pagec in pages:
+        sitemap_string += sitemap_helper("{}{}/{}".format(domain, "", pages[pagec].metadata['slug']), pages[pagec].metadata['date'], "monthly", 0.5)
     
 
     #POSTS
@@ -41,6 +42,11 @@ def generate_sitemap(domain,statics,posts, posts_pre_slug):
     os.makedirs(os.path.dirname(sitemap_file_path), exist_ok=True)
     with open(sitemap_file_path, 'w') as file:
         file.write(sitemap_string)
+
+def copy_files(from_folder, to_folder):
+    os.makedirs(os.path.dirname(to_folder + "/test.txt"), exist_ok=True)
+    for file in os.listdir(from_folder):
+        shutil.copy(from_folder + "/" + file, to_folder)
 
 def main():
     #initiate configs
@@ -59,7 +65,7 @@ def main():
         'image_sizes' : config['DEFAULT']['Image Sizes'].split(',')[::-1] #reversed images sizes!!
     }
 
-    print("Building Static Site with {}".format(site_meta['generator']))
+    print("Building page Site with {}".format(site_meta['generator']))
     print("...")
     # Compile and write main.scss to main.css into output/css
     print("Compile and save scss to css")
@@ -78,18 +84,18 @@ def main():
         with open(file_path, 'r') as file:
             POSTS[markdown_post] = markdown(file.read(), extras=['metadata'])
 
-    # Reading Static Sites
-    print("Preparing static Sites")
-    STATICS = {}
-    for markdown_static in tqdm(os.listdir('content/static')):
-        file_path = os.path.join('content/static', markdown_static)
+    # Reading pages Sites
+    print("Preparing pages")
+    PAGES = {}
+    for markdown_page in tqdm(os.listdir('content/pages')):
+        file_path = os.path.join('content/pages', markdown_page)
 
         with open(file_path, 'r') as file:
-            STATICS[markdown_static] = markdown(file.read(), extras=['metadata'])
-    statics_nav = []
-    for static_site in (STATICS):
-        statics_nav.append({'name':STATICS[static_site].metadata['title'], 'slug':STATICS[static_site].metadata['slug']})
-    site_meta['statics_nav'] = statics_nav
+            PAGES[markdown_page] = markdown(file.read(), extras=['metadata'])
+    pages_nav = []
+    for page_site in (PAGES):
+        pages_nav.append({'name':PAGES[page_site].metadata['title'], 'slug':PAGES[page_site].metadata['slug']})
+    site_meta['pages_nav'] = pages_nav
 
     # Sorting Posts
     POSTS = {
@@ -117,7 +123,7 @@ def main():
     env = Environment(loader=PackageLoader('build', 'templates'))
     home_template = env.get_template('home.html')
     post_template = env.get_template('post.html')
-    static_template = env.get_template('statics.html')
+    page_template = env.get_template('page.html')
     tag_template = env.get_template('tag.html')
 
     #rendering homepage
@@ -166,32 +172,41 @@ def main():
             file.write(template_html)
 
 
-    #writing static sites
-    print("Writing static sites")
-    for static_site in tqdm(STATICS):
-        static_metadata = STATICS[static_site].metadata
+    #writing page sites
+    print("Writing page sites")
+    for page_site in tqdm(PAGES):
+        page_metadata = PAGES[page_site].metadata
 
         #read meta
-        static_data = {
-            'content': STATICS[static_site],
-            'title': static_metadata['title'],
-            'date': static_metadata['date'],
-            'summary': static_metadata['summary'],
-            'slug': static_metadata['slug']
+        page_data = {
+            'content': PAGES[page_site],
+            'title': page_metadata['title'],
+            'date': page_metadata['date'],
+            'summary': page_metadata['summary'],
+            'slug': page_metadata['slug']
         }
 
-        #render static site
-        static_html = static_template.render(static=static_data, site_meta=site_meta)
+        #render page site
+        page_html = page_template.render(page=page_data, site_meta=site_meta)
 
-        static_file_path = 'output/{slug}.html'.format(slug=static_metadata['slug'])
+        page_file_path = 'output/{slug}.html'.format(slug=page_metadata['slug'])
 
-        os.makedirs(os.path.dirname(static_file_path), exist_ok=True)
-        with open(static_file_path, 'w') as file:
-            file.write(static_html)
+        os.makedirs(os.path.dirname(page_file_path), exist_ok=True)
+        with open(page_file_path, 'w') as file:
+            file.write(page_html)
 
     #generate sitemap
     print('Generating Sitemap')
-    generate_sitemap(site_meta['domain'], STATICS, POSTS, site_meta['posts_pre_slug'])
+    generate_sitemap(site_meta['domain'], PAGES, POSTS, site_meta['posts_pre_slug'])
+
+    # Copy Folders
+    print('Copying static folders')
+    folder_list = [
+        {'from':'assets/js', 'to':'output/js'},
+        {'from':'assets/static', 'to':'output'}
+    ]
+    for folder in tqdm(folder_list):
+        copy_files(folder['from'], folder['to'])
 
     #images
     print("Rendering image thumbnails")

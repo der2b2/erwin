@@ -50,8 +50,8 @@
             <div class="row flex-nowrap justify-content-between align-items-center">
                 
                 <div class="col-12 text-center">
-                <h1>Site Name</h1>
-                <h2>Site Claimerererer erer</h2>
+                <h1>{{site_meta.site_name}}</h1>
+                <h2>{{ site_meta.site_claim }}</h2>
                 </div>
                 
             </div>
@@ -70,9 +70,9 @@
                         <a class="nav-link" href="/{{tager.slug}}.html">{{tager.name}}</a>
                     </li>
                     {% endfor %}
-                    {% for staticer in site_meta.statics_nav %}
+                    {% for page in site_meta.pages_nav %}
                     <li class="nav-item">
-                        <a class="nav-link" href="/{{staticer.slug}}.html">{{staticer.name}}</a>
+                        <a class="nav-link" href="/{{page.slug}}.html">{{page.name}}</a>
                     </li>
                     {% endfor %}
                 </ul>

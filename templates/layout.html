@@ -12,14 +12,24 @@
     <!-- Canonical -->
     <link rel="canonical" href="{{site_meta.domain}}{% block canonical %}{% endblock %}">
 
-    <!-- Twitter Facebook card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:creator" content="@{{site_meta.twitter}}" />
-    <meta property="og:url" content="{{site_meta.domain}}{{ self.canonical() }}" />
-    <meta property="og:title" content="{{ self.title() }}" />
-    <meta property="og:description" content="{{ self.description() }}" />
-    <meta property="og:image" content="{% block image %}{% endblock %}" />
-    <meta property="og:site_name" content="{{site_meta.site_name}}">
+    <!-- Google / Search Engine Tags -->
+    <meta itemprop="name" content="{{ self.title() }}">
+    <meta itemprop="description" content="{{ self.description() }}">
+    <meta itemprop="image" content="{% block image %}{% endblock %}">
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="{{site_meta.domain}}{{ self.canonical() }}">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="{{ self.title() }}">
+    <meta property="og:description" content="{{ self.description() }}">
+    <meta property="og:image" content="{{ self.image() }}">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ self.title() }}">
+    <meta name="twitter:description" content="{{ self.description() }}">
+    <meta name="twitter:image" content="{{ self.image() }}">
 
     <!-- Icons -->
 

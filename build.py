@@ -49,6 +49,9 @@ def copy_files(from_folder, to_folder):
         shutil.copy(from_folder + "/" + file, to_folder)
 
 def main():
+    print("Reading Configs...")
+    print()
+
     #initiate configs
     config = configparser.ConfigParser()
     config.read('site_config.ini')
@@ -70,6 +73,7 @@ def main():
 
     print("Building page Site with {}".format(site_meta['generator']))
     print("...")
+
     # Compile and write main.scss to main.css into output/css
     print("Compile and save scss to css")
     css_string = sass.compile(filename="assets/css/main.scss")
@@ -86,8 +90,13 @@ def main():
 
         with open(file_path, 'r') as file:
             POSTS[markdown_post] = markdown(file.read(), extras=['metadata'])
+    # Sorting Posts
+    POSTS = {
+        post: POSTS[post] for post in sorted(POSTS, key=lambda post: datetime.strptime(POSTS[post].metadata['date'], '%Y-%m-%d'), reverse=True)
+    }
+    posts_metadata = [POSTS[post].metadata for post in POSTS]
 
-    # Reading pages Sites
+    # Reading pages
     print("Preparing pages")
     PAGES = {}
     for markdown_page in tqdm(os.listdir('content/pages')):
@@ -95,16 +104,11 @@ def main():
 
         with open(file_path, 'r') as file:
             PAGES[markdown_page] = markdown(file.read(), extras=['metadata'])
+    #Preparing Pages nav
     pages_nav = []
     for page_site in (PAGES):
         pages_nav.append({'name':PAGES[page_site].metadata['title'], 'slug':PAGES[page_site].metadata['slug']})
     site_meta['pages_nav'] = pages_nav
-
-    # Sorting Posts
-    POSTS = {
-        post: POSTS[post] for post in sorted(POSTS, key=lambda post: datetime.strptime(POSTS[post].metadata['date'], '%Y-%m-%d'), reverse=True)
-    }
-    posts_metadata = [POSTS[post].metadata for post in POSTS]
 
     # Preparing tags
     print("Preparing tags")
@@ -113,7 +117,7 @@ def main():
     tags_helper = []
     for tag in tags:
         tag_url = tag.lower()
-        chars = {'ö':'oe','ä':'ae','ü':'ue','ß':'ss',' ':'-','_':'-','?':'','!':'','&':'-'}
+        chars = {'ö':'oe','ä':'ae','ü':'ue','ß':'ss',' ':'-','_':'-','?':'','!':'','&':'-','/':'-'}
         for char in chars:
             tag_url = tag_url.replace(char,chars[char])
         tags_helper.append({'name':tag, 'slug':tag_url})

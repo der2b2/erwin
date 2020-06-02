@@ -62,6 +62,9 @@ def main():
         'site_name' : config['DEFAULT']['Site Name'],
         'site_claim' : config['DEFAULT']['Claim'],
         'twitter' : config['DEFAULT']['Twitter'],
+        'facebook' : config['DEFAULT']['Facebook'],
+        'logo_file' : config['DEFAULT']['Logo File'],
+        'language' : config['DEFAULT']['Language'],
         'image_sizes' : config['DEFAULT']['Image Sizes'].split(',')[::-1] #reversed images sizes!!
     }
 
@@ -203,7 +206,8 @@ def main():
     print('Copying static folders')
     folder_list = [
         {'from':'assets/js', 'to':'output/js'},
-        {'from':'assets/static', 'to':'output'}
+        {'from':'assets/static', 'to':'output'},
+        {'from':'assets/static-img', 'to':'output/img'}
     ]
     for folder in tqdm(folder_list):
         copy_files(folder['from'], folder['to'])
@@ -211,8 +215,8 @@ def main():
     #images
     print("Rendering image thumbnails")
     os.makedirs(os.path.dirname('output/img/test.txt'), exist_ok=True)
-    for images in tqdm(os.listdir('assets/img')):
-        file_path = os.path.join('assets/img', images)
+    for images in tqdm(os.listdir('assets/responsive-img')):
+        file_path = os.path.join('assets/responsive-img', images)
 
         image_name = images.split(".")[0]
 

@@ -14,7 +14,7 @@
 
     <!-- Twitter Facebook card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:creator" content="{{site_meta.twitter}}" />
+    <meta name="twitter:creator" content="@{{site_meta.twitter}}" />
     <meta property="og:url" content="{{site_meta.domain}}{{ self.canonical() }}" />
     <meta property="og:title" content="{{ self.title() }}" />
     <meta property="og:description" content="{{ self.description() }}" />
@@ -30,7 +30,6 @@
     <!-- CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/main.css">
-    <meta >
   </head>
   <body>
     <div class="container">
@@ -39,12 +38,19 @@
             <div class="row flex-nowrap justify-content-between align-items-center">
                 <div class="col-4 pt-1">
                     <a class="blog-header-logo text-dark" href="/">
-                        <img > Logo
-                    </a>
-                </div>
-                
+                        <img src="/img/{{site_meta.logo_file}}" alt="{{ self.title() }}" /></a>
+                    </div>
                 <div class="col-4 d-flex justify-content-end align-items-center">
-                  Social Links
+                    {% if site_meta.twitter %}
+                    <a href="https://twitter.com/{{site_meta.twitter}}" target="_blank">
+                        <img src="/img/twitter.svg" width="20" height="20" alt="Twitter">
+                    </a>
+                    {% endif %}
+                    {% if site_meta.facebook %}
+                    <a class="ml-1" href="https://facebook.com/{{site_meta.facebook}}" target="_blank">
+                        <img src="/img/facebook.svg" width="20" height="20" alt="Facebook">
+                    </a>
+                    {% endif %}
                 </div>
               </div>
             <div class="row flex-nowrap justify-content-between align-items-center">
@@ -55,7 +61,7 @@
                 </div>
                 
             </div>
-        
+            
       
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 

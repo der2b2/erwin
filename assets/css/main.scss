@@ -62,6 +62,14 @@ body{
         }
     }
 
+    .social {
+        opacity: 0.7;
+
+        &:hover {
+            opacity: 1.0;
+        }
+    }
+
     .navbar {
         background: transparent;
 
@@ -76,3 +84,27 @@ body{
     }
 }
 
+.content-container {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+footer {
+    background-image: url("../img/publication-cover.jpg"); /* The image used */
+    background-color: #333; /* Used if the image is unavailable */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+
+    color: #f1f1f1;
+
+    a {
+        color: #fff;
+        opacity: 0.7;
+
+            &:hover {
+                opacity: 1.0;
+            }
+    }
+    
+}

@@ -6,9 +6,19 @@
 {% block image %}{{site_meta.domain}}/img/{{ post.img }}-{{site_meta.image_sizes[0]}}.jpg{% endblock %}
 
 {% block content %}
-    
+    <div class="content-container">
     <h1>{{ post.title }}</h1>
-
+    
+    
+    <div class="row flex-nowrap justify-content-between align-items-center ml-1 mr-1 mb-4">
+        <div>    
+            <img src="/img/{{ site_meta.avatar }}" width=32 height=32 class="rounded-circle" alt="{{ site_meta.author }}">
+            <small class="ml-1">{{ site_meta.author }}</small>
+        </div>
+        <small>{{ post.reading_time }} min read</small>
+    </div>
+    <p>{{post.summary}}</p>
+</div>
     {% if post.img %}
     <picture>
         {% for size in site_meta.image_sizes %}
@@ -18,9 +28,10 @@
     </picture>
     {% endif %}
 
-    <small>{{ post.date }}</small>
-    <p>
+    
+    <div class="content-container">
+    
         {{ post.content }}
-    </p>
-
+    
+    </div>
 {% endblock %}

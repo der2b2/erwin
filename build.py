@@ -9,6 +9,7 @@ import rcssmin
 from PIL import Image
 import time
 from tqdm import tqdm
+import re
 
 def sitemap_helper(url, lastmod, changefreq, priority):
     url_string = """<url>
@@ -48,6 +49,20 @@ def copy_files(from_folder, to_folder):
     for file in os.listdir(from_folder):
         shutil.copy(from_folder + "/" + file, to_folder)
 
+def clean_html(raw_html):
+    cleanr = re.compile('<.*?>')
+    cleantext = re.sub(cleanr, '', raw_html)
+    return cleantext
+
+def count_words(input_string):
+    res = len(re.findall(r'\w+', clean_html(input_string)))
+    return res
+
+#returns average reading length in minutes
+#minimum is 1
+def reading_time(input_string):
+    return max(int(round(count_words(input_string) / 200.0, 0)), 1)
+
 def main():
     print("Reading Configs...")
     print()
@@ -67,7 +82,9 @@ def main():
         'twitter' : config['DEFAULT']['Twitter'],
         'facebook' : config['DEFAULT']['Facebook'],
         'logo_file' : config['DEFAULT']['Logo File'],
+        'avatar' : config['DEFAULT']['Author Avatar Image'],
         'language' : config['DEFAULT']['Language'],
+        'actual_year' : datetime.now().year,
         'image_sizes' : config['DEFAULT']['Image Sizes'].split(',')[::-1] #reversed images sizes!!
     }
 
@@ -152,7 +169,9 @@ def main():
             'date': post_metadata['date'],
             'summary': post_metadata['summary'],
             'slug': post_metadata['slug'],
-            'img': post_metadata['img'].split('.')[0]
+            'img': post_metadata['img'].split('.')[0],
+            'word_count' : count_words(POSTS[post]),
+            'reading_time' : reading_time(POSTS[post])
         }
 
         #render post

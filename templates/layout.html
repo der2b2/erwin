@@ -51,7 +51,7 @@
                     <a class="blog-header-logo text-dark" href="/">
                         <img src="/img/{{site_meta.logo_file}}" alt="{{ self.title() }}" /></a>
                     </div>
-                <div class="col-4 d-flex justify-content-end align-items-center mr-4">
+                <div class="col-4 d-flex justify-content-end align-items-center mr-4 social">
                     {% if site_meta.twitter %}
                     <a href="https://twitter.com/{{site_meta.twitter}}" target="_blank">
                         <img src="/img/twitter.svg" width="20" height="20" alt="Twitter">
@@ -106,18 +106,25 @@
     <div class="container">
     {% block content %} {% endblock %}
     </div>
-    <div class="container">
-        <footer>
+    <footer class="pt-3 pb-3">
+        <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-md-6">
-                    Der Footer links
+                    <p>{{site_meta.site_name}} &copy; {{site_meta.actual_year}}</p>
                 </div>
                 <div class="col-xs-12 col-md-6">
-                    Der Footer rechts
+                    <ul>
+                        <li><a href="/sitemap.xml">Sitemap</a></li>
+                        {% for page in site_meta.pages_nav %}
+                    <li>
+                        <a href="/{{page.slug}}.html">{{page.name}}</a>
+                    </li>
+                    {% endfor %}
+                    </ul>
                 </div>
             </div>
-        </footer>
-    </div>
+        </div>
+    </footer>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

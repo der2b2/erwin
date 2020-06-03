@@ -34,6 +34,28 @@ body{
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -moz-font-feature-settings: "liga" on;
+    color: #333;
+
+    h1 {
+        font-family: headerer, Georgia, 'Times New Roman', Times, serif;
+        font-weight: 400;
+        font-size: 3rem;
+    }
+
+    h2 {
+        font-family: headerer, Georgia, 'Times New Roman', Times, serif;
+        font-size: 28px;
+        font-weight: 500;
+        margin-top: 40px;
+    }
+
+    h3 {
+        font-size: 22px;
+        font-weight: 400;
+    }
+
+    
+
 }
 
 .blog-header {
@@ -54,6 +76,8 @@ body{
         font-size: 22px;
         opacity: 0.7;
         font-weight: 400;
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
 
     .blog-header-logo {
@@ -76,6 +100,7 @@ body{
         .nav-link {
             color: #fff;
             opacity: 0.7;
+            padding-left: 1.2rem;
 
             &:hover {
                 opacity: 1.0;
@@ -85,8 +110,48 @@ body{
 }
 
 .content-container {
-    max-width: 720px;
-    margin: 0 auto;
+    max-width: 760px;
+    margin: 35px auto;
+
+    small{
+        font-weight: 300;
+        font-size: 15px
+    }
+
+    p, li {
+        font-size: 19px;
+        line-height: 190%;
+        font-weight: 300;
+    }
+}
+
+.card {
+    border-radius: 10px;
+
+    .card-img-top{
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .card-title {
+        font-family: headerer, Georgia, 'Times New Roman', Times, serif;
+        color: #333;
+        font-size: 18px;
+        line-height: 130%;
+    }
+
+    p {
+        color: #333;
+        line-height: 140%;
+        font-size: 16px;
+    }
+
+    .card-footer {
+        small{
+            font-weight: 300;
+            font-size: 15px
+        }
+    }
 }
 
 footer {

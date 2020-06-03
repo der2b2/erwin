@@ -111,6 +111,8 @@ def main():
     POSTS = {
         post: POSTS[post] for post in sorted(POSTS, key=lambda post: datetime.strptime(POSTS[post].metadata['date'], '%Y-%m-%d'), reverse=True)
     }
+    for post in POSTS:
+        POSTS[post].metadata['reading_time'] = reading_time(POSTS[post])
     posts_metadata = [POSTS[post].metadata for post in POSTS]
 
     # Reading pages
@@ -171,7 +173,7 @@ def main():
             'slug': post_metadata['slug'],
             'img': post_metadata['img'].split('.')[0],
             'word_count' : count_words(POSTS[post]),
-            'reading_time' : reading_time(POSTS[post])
+            'reading_time' : post_metadata['reading_time']
         }
 
         #render post

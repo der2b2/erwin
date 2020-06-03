@@ -1,0 +1,13 @@
+# RewriteEnginge anschalten
+RewriteEngine on
+
+# nächste RewriteRule gilt nur, wenn die Datei nicht existiert
+RewriteCond %{REQUEST_FILENAME} !-f
+# nächste RewriteRule gilt nur, wenn es auch kein Ordner ist
+RewriteCond %{REQUEST_FILENAME} !-d
+# nächste RewriteRule gilt nur, wenn die Anfrage nicht auf .html endet. 
+# [NC] -> Groß-Kleinschreibung egal.
+RewriteCond %{REQUEST_URI} !\.html$ [NC]
+# Hänge .html an den Dateinamen an. 
+# [L] -> Führe keine eventuell folgenden RewriteRules aus
+RewriteRule ^(.*)$ $1.html [L]

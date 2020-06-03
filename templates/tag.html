@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "home.html" %}
 
 {% block title %} Homepage {% endblock %}
 {% block description %}Homepage Metatea{% endblock %}
@@ -7,33 +7,7 @@
 {% block headline %}
     <h1>{{tag.name}}</h1>
     {% endblock %}
-
-{% block content %}
-    
-{% for post in posts %}
-        {% if loop.index0 % 3 == 0 %}
-            <div class="row mb-4">
-        {% endif %}
-        <div class="col-xs-12 col-sm-6 col-lg-4">
-            <div class="card">
-                <a href="{{site_meta.posts_pre_slug}}/{{ post.slug }}.html">
-                    <img class="card-img-top" src="/img/{{post.img|replace('.jpg','')}}-{{site_meta.image_sizes[-1]}}.jpg" alt="Card image cap">
-                </a>
-                <div class="card-body">
-                    <a href="{{site_meta.posts_pre_slug}}/{{ post.slug }}.html">
-                <h5 class="card-title">{{post.title}}</h5>
-                <p class="card-text">{{post.summary}}</p>
-                </a>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
-            </div>
-        </div>
-        {% if loop.index % 3 == 0 %}
-            </div>
-        {% endif %}
-      {% endfor %}
-    </div>
+    {% block headclaim %}
     
 {% endblock %}
+

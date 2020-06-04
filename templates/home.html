@@ -18,11 +18,11 @@
         {% endif %}
         <div class="col-xs-12 col-sm-6 col-lg-4 mb-4">
             <div class="card">
-                <a href="{{site_meta.posts_pre_slug}}/{{ post.slug }}.html">
+                <a href="{{site_meta.posts_pre_slug}}/{{ post.slug }}/">
                     <img class="card-img-top" src="/img/{{post.img|replace('.jpg','')}}-{{site_meta.image_sizes[-1]}}.jpg" alt="Card image cap">
                 </a>
                 <div class="card-body">
-                    <a href="{{site_meta.posts_pre_slug}}/{{ post.slug }}.html">
+                    <a href="{{site_meta.posts_pre_slug}}/{{ post.slug }}/">
                 <h5 class="card-title">{{post.title}}</h5>
                 <p class="card-text">{{post.summary}}</p>
                 </a>

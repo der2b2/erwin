@@ -1,3 +1,19 @@
+@import "scss/functions";
+@import "scss/variables";
+@import "scss/mixins";
+
+// Optional
+@import "scss/reboot";
+@import "scss/type";
+@import "scss/images";
+@import "scss/code";
+@import "scss/grid";
+@import "scss/buttons";
+@import "scss/card";
+@import "scss/code";
+@import "scss/nav";
+@import "scss/navbar";
+
 /* playfair-display-regular - latin */
 @font-face {
     font-family: 'headerer';

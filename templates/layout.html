@@ -34,12 +34,14 @@
     <!-- Icons -->
 
     <!-- RSS -->
-    <link rel="alternate" type="application/rss+xml" href="/rss"/>
+    
     <!-- Sitemap -->
     <link rel="sitemap" type="application/xml" href="/sitemap.xml"/>
     <!-- CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/main.css">
+    <script src="https://cmp.osano.com/16BZBRS0sRV092eSc/3db78693-3055-4fc4-8871-1cc968b3623b/osano.js"></script>
+    <script async="" src="https://www.google-analytics.com/analytics.js"></script>
+    <script data-ad-client="ca-pub-5635662834422343" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   </head>
   <body>
     
@@ -88,12 +90,12 @@
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                     {% for tager in site_meta.tags_nav %}
                     <li class="nav-item">
-                        <a class="nav-link" href="/{{tager.slug}}.html">{{tager.name}}</a>
+                        <a class="nav-link" href="/{{tager.slug}}/">{{tager.name}}</a>
                     </li>
                     {% endfor %}
                     {% for page in site_meta.pages_nav %}
                     <li class="nav-item">
-                        <a class="nav-link" href="/{{page.slug}}.html">{{page.name}}</a>
+                        <a class="nav-link" href="/{{page.slug}}/">{{page.name}}</a>
                     </li>
                     {% endfor %}
                 </ul>
@@ -117,7 +119,7 @@
                         <li><a href="/sitemap.xml">Sitemap</a></li>
                         {% for page in site_meta.pages_nav %}
                     <li>
-                        <a href="/{{page.slug}}.html">{{page.name}}</a>
+                        <a href="/{{page.slug}}/">{{page.name}}</a>
                     </li>
                     {% endfor %}
                     </ul>
@@ -127,7 +129,7 @@
                         
                         {% for tager in site_meta.tags_nav %}
                     <li>
-                        <a href="/{{tager.slug}}.html">{{tager.name}}</a>
+                        <a href="/{{tager.slug}}/">{{tager.name}}</a>
                     </li>
                     {% endfor %}
                     </ul>

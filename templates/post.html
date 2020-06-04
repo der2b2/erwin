@@ -2,7 +2,7 @@
 
 {% block title %}{{ post.title }}{% endblock %}
 {% block description %}{{post.summary}}{% endblock %}
-{% block canonical %}{{site_meta.posts_pre_slug}}/{{post.slug}}.html{% endblock %}
+{% block canonical %}{{site_meta.posts_pre_slug}}/{{post.slug}}/{% endblock %}
 {% block image %}{{site_meta.domain}}/img/{{ post.img }}-{{site_meta.image_sizes[0]}}.jpg{% endblock %}
 
 {% block content %}

@@ -179,7 +179,7 @@ def main():
         #render post
         post_html = post_template.render(post=post_data, site_meta=site_meta)
 
-        post_file_path = 'output{posts_pre_slug}/{slug}.html'.format(posts_pre_slug=site_meta['posts_pre_slug'], slug=post_metadata['slug'])
+        post_file_path = 'output{posts_pre_slug}/{slug}/index.html'.format(posts_pre_slug=site_meta['posts_pre_slug'], slug=post_metadata['slug'])
 
         os.makedirs(os.path.dirname(post_file_path), exist_ok=True)
         with open(post_file_path, 'w') as file:
@@ -193,7 +193,7 @@ def main():
             if tag['name'] == post['tags']:
                 tag_posts.append(post)
         template_html = tag_template.render(posts=tag_posts, site_meta=site_meta, tag=tag)
-        template_file_path = 'output/{tag}.html'.format(tag=tag['slug'])
+        template_file_path = 'output/{tag}/index.html'.format(tag=tag['slug'])
 
         os.makedirs(os.path.dirname(template_file_path), exist_ok=True)
         with open(template_file_path, 'w') as file:
@@ -217,7 +217,7 @@ def main():
         #render page site
         page_html = page_template.render(page=page_data, site_meta=site_meta)
 
-        page_file_path = 'output/{slug}.html'.format(slug=page_metadata['slug'])
+        page_file_path = 'output/{slug}/index.html'.format(slug=page_metadata['slug'])
 
         os.makedirs(os.path.dirname(page_file_path), exist_ok=True)
         with open(page_file_path, 'w') as file:

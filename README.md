@@ -3,7 +3,15 @@ python static site generator for blogs
 (built and testet with python3)
 
 ## Table of contents
-[Headers](#headers)  
+- [Erwin SSG](#erwin-ssg)
+  * [Features](#features)
+  * [Install](#install)
+  * [Usage](#usage)
+    + [clean.py](#cleanpy)
+    + [build.py](#buildpy)
+    + [serve.py](#servepy)
+  * [Structure](#structure)
+  * [Site Metadata](#site-metadata)
 
 ## Features
 - Templating with Jinja2

@@ -2,6 +2,9 @@
 python static site generator for blogs
 (built and testet with python3)
 
+## Table of contents
+[Headers](#headers)  
+
 ## Features
 - Templating with Jinja2
 - SASS compiler

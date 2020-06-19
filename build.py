@@ -98,8 +98,15 @@ def main():
     os.makedirs(os.path.dirname(css_file_path), exist_ok=True)
     with open(css_file_path, 'w') as file:
         file.write(rcssmin.cssmin(css_string))
-    shutil.copy("assets/css/critical-main.css", "output/css/critical-main.css")
-            
+
+    # Compile and write critical-main.scss to critical-main.css into output/css
+    print("Compile and save critical scss to css")
+    css_string_crit = sass.compile(filename="assets/css/critical-main.scss")
+    if css_string_crit == "":
+        site_meta['critical_css'] = rcssmin.cssmin(css_string)
+    else:
+        site_meta['critical_css'] = rcssmin.cssmin(css_string_crit)
+                
     # Reading Posts
     print("Preparing posts")
     POSTS = {}

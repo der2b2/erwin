@@ -100,10 +100,15 @@ body{
         .nav-link {
             color: #fff;
             opacity: 0.7;
-            padding-left: 1.2rem;
+            padding-left: 1.5rem;
+            line-height: 2em;
 
             &:hover {
                 opacity: 1.0;
+            }
+
+            @media (min-width: 1000px){
+                line-height: 1.2em;
             }
         }
     }
@@ -166,10 +171,15 @@ footer {
     a {
         color: #fff;
         opacity: 0.7;
+        line-height: 2em;
 
             &:hover {
                 opacity: 1.0;
             }
+
+        @media (min-width: 800px){
+            line-height: 1.4em;
+        }
     }
     
 }

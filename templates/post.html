@@ -22,7 +22,10 @@
     {% if post.img %}
     <picture>
         {% for size in site_meta.image_sizes %}
-            <source media="(min-width:{{ size }}px)" srcset="/img/{{ post.img }}-{{size}}.jpg">
+            <source  type="image/webp" media="(min-width:{{ size }}px)" srcset="/img/{{ post.img }}-{{size}}.webp">
+        {% endfor %}
+        {% for size in site_meta.image_sizes %}
+            <source type="image/jpeg" media="(min-width:{{ size }}px)" srcset="/img/{{ post.img }}-{{size}}.jpg">
         {% endfor %}
         <img class="img-fluid img-thumbnail" src="/img/{{ post.img }}-{{site_meta.image_sizes[-1]}}.jpg" alt="{{ post.title }}" style="width:100%;">
     </picture>

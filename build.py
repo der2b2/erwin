@@ -98,6 +98,7 @@ def main():
     os.makedirs(os.path.dirname(css_file_path), exist_ok=True)
     with open(css_file_path, 'w') as file:
         file.write(rcssmin.cssmin(css_string))
+    shutil.copy("assets/css/critical-main.css", "output/css/critical-main.css")
             
     # Reading Posts
     print("Preparing posts")
@@ -249,8 +250,10 @@ def main():
         for image_size in tqdm(site_meta['image_sizes']):
             new_image = Image.open(file_path)
             new_image.thumbnail((int(image_size),int(image_size)))
-            image_file_path = 'output/img/{name}-{size}.jpg'.format(name=image_name, size=image_size)
-            new_image.save(image_file_path, quality=60, optimize=True)
+            image_file_path_webp = 'output/img/{name}-{size}.webp'.format(name=image_name, size=image_size)
+            image_file_path_jpg = 'output/img/{name}-{size}.jpg'.format(name=image_name, size=image_size)
+            new_image.save(image_file_path_webp, quality=50, method=0)
+            new_image.save(image_file_path_jpg, quality=50, optimize=True)
 
     print()
     print("Yippie, site was build successfully")

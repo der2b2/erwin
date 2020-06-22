@@ -1,7 +1,8 @@
-{% extends "home.html" %}
+{% extends "layout.html" %}
+{% import "macros/images.html" as images %}
 
-{% block title %} Homepage {% endblock %}
-{% block description %}Homepage Metatea{% endblock %}
+{% block title %}{{tag.name}}{% endblock %}
+{% block description %}{{tag.name}}{% endblock %}
 {% block canonical %}/{{tag.slug}}/{% endblock %}
 
 {% block headline %}
@@ -9,5 +10,9 @@
     {% endblock %}
     {% block headclaim %}
     
+{% endblock %}
+
+{% block content %}
+    {{ images.responsive_img_thumbnail_list(site_meta=site_meta, posts=posts) }}
 {% endblock %}
 

@@ -93,6 +93,18 @@
                         <a class="nav-link" href="/{{tager.slug}}/">{{tager.name}}</a>
                     </li>
                     {% endfor %}
+                    {% for category in site_meta.category_nav %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                {{category.cat_meta.name}}
+                            </a>
+                            <div class="dropdown-menu">
+                            {% for c_page in category.cat_pages %}
+                                <a class="dropdown-item" href="/{{c_page.slug}}/">{{c_page.title}}</a>
+                            {% endfor %}
+                            </div>
+                      </li>
+                    {% endfor %}
                     {% for page in site_meta.pages_nav %}
                     <li class="nav-item">
                         <a class="nav-link" href="/{{page.slug}}/">{{page.name}}</a>

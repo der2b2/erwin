@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+{% import "macros/images.html" as images %}
 
 
 {% block headline %}
@@ -11,39 +12,6 @@
 
 {% block content %}
     
-
-    {% for post in posts %}
-        {% if loop.index0 % 3 == 0 %}
-            <div class="row px-3">
-        {% endif %}
-        <div class="col-xs-12 col-sm-6 col-lg-4 mb-4">
-            <div class="card">
-                <a href="{{site_meta.posts_pre_slug}}/{{ post.slug }}/">
-                    <picture>
-                        <source  type="image/webp" srcset="/img/{{post.img|replace('.jpg','')}}-{{site_meta.image_sizes[-1]}}.webp">
-                        <img class="card-img-top" src="/img/{{post.img|replace('.jpg','')}}-{{site_meta.image_sizes[-1]}}.jpg" alt="{{post.title}}">
-                    </picture>
-                </a>
-                <div class="card-body">
-                    <a href="{{site_meta.posts_pre_slug}}/{{ post.slug }}/">
-                <h5 class="card-title">{{post.title}}</h5>
-                <p class="card-text">{{post.summary}}</p>
-                </a>
-                </div>
-                <div class="card-footer">
-                    <div class="row flex-nowrap justify-content-between align-items-center ml-1 mr-1">
-                        <div>    
-                            <img src="/img/{{ site_meta.avatar }}" width=32 height=32 class="rounded-circle" alt="{{ site_meta.author }}">
-                            <small class="ml-1">{{ site_meta.author }}</small>
-                        </div>
-                        <small>{{ post.reading_time }} min read</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% if loop.index % 3 == 0 %}
-            </div>
-        {% endif %}
-      {% endfor %}
-    </div>
+        {{ images.responsive_img_thumbnail_list(site_meta=site_meta, posts=posts) }}
+        
 {% endblock %}

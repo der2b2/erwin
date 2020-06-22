@@ -131,11 +131,38 @@ def main():
 
         with open(file_path, 'r') as file:
             PAGES[markdown_page] = markdown(file.read(), extras=['metadata'])
+    pages_metadata = [PAGES[page].metadata for page in PAGES]
+
     #Preparing Pages nav
+    # Preparing categories from pages
+    print("Preparing categories")
+    categories = [page['category'] for page in pages_metadata]
+    categories = list(dict.fromkeys(categories))
+    categories = list(filter(None, categories))
+    print(categories)
+    categories_helper = []
+    for category in categories:
+        category_url = category.lower()
+        chars = {'ö':'oe','ä':'ae','ü':'ue','ß':'ss',' ':'-','_':'-','?':'','!':'','&':'-','/':'-'}
+        for char in chars:
+            category_url = category_url.replace(char,chars[char])
+        categories_helper.append({'name':category, 'slug':category_url})
+    categories = categories_helper
     pages_nav = []
-    for page_site in (PAGES):
-        pages_nav.append({'name':PAGES[page_site].metadata['title'], 'slug':PAGES[page_site].metadata['slug']})
+    category_nav = []
+
+    for category in categories:
+        category_pages = []
+        for page in pages_metadata:
+            if category['name'] == page['category']:
+                category_pages.append(page)
+        category_nav.append({'cat_meta':category, 'cat_pages':category_pages})
+
+    for page_site in pages_metadata:
+        if page_site['category'] == "":
+            pages_nav.append({'name':page_site['title'], 'slug':page_site['slug']})
     site_meta['pages_nav'] = pages_nav
+    site_meta['category_nav'] = category_nav
 
     # Preparing tags
     print("Preparing tags")
@@ -219,7 +246,9 @@ def main():
             'title': page_metadata['title'],
             'date': page_metadata['date'],
             'summary': page_metadata['summary'],
-            'slug': page_metadata['slug']
+            'slug': page_metadata['slug'],
+            'category': page_metadata['category'],
+            'img': page_metadata['img'].split('.')[0]
         }
 
         #render page site

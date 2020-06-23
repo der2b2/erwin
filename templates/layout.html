@@ -34,6 +34,7 @@
     <!-- Icons -->
 
     <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="{{site_meta.site_name}} Feed" href="{{site_meta.domain}}/rss.xml" />
     
     <!-- Sitemap -->
     <link rel="sitemap" type="application/xml" href="/sitemap.xml"/>
@@ -129,6 +130,7 @@
                 <div class="col-xs-12 col-md-4">
                     <ul class="list-unstyled">
                         <li><a href="/sitemap.xml">Sitemap</a></li>
+                        <li><a href="/rss.xml">RSS Feed</a></li>
                         {% for page in site_meta.pages_nav %}
                     <li>
                         <a href="/{{page.slug}}/">{{page.name}}</a>

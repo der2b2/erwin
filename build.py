@@ -44,6 +44,79 @@ def generate_sitemap(domain,pages,posts, posts_pre_slug):
     with open(sitemap_file_path, 'w') as file:
         file.write(sitemap_string)
 
+def generate_rss_feed(posts, posts_pre_slug, site_meta):
+    rss_string = """<?xml version="1.0" encoding="UTF-8"?>
+            <rss version="2.0"
+            xmlns:content="http://purl.org/rss/1.0/modules/content/"
+            xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+            xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:atom="http://www.w3.org/2005/Atom"
+            xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+            xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+            >
+
+        <channel>
+            <title>{site_title}</title>
+            <atom:link href="{feed_url}" rel="self" type="application/rss+xml" />
+            <link>{domain}</link>
+            <description>{site_description}</description>
+            <lastBuildDate>{last_build_date}</lastBuildDate>
+            <language>{language}</language>
+            <sy:updatePeriod>
+            hourly	</sy:updatePeriod>
+            <sy:updateFrequency>
+            1	</sy:updateFrequency>
+            <generator>{generator}</generator>
+            
+            
+            
+    """.format(
+        site_title=site_meta['site_name'],
+        feed_url=site_meta['domain'] + "/rss.xml",
+        domain=site_meta['domain'],
+        site_description=site_meta['site_claim'],
+        last_build_date=datetime.strftime(datetime.now(), "%a, %d %b %Y %H:%M:%S") + " GMT",
+        language=site_meta['language_full'],
+        generator=site_meta['generator']
+    )
+
+    counter = 0
+    for post in posts:
+        rss_string += """<item>
+                    <title>{title}</title>
+                    <link>{url}</link>
+                            <pubDate>{date}</pubDate>
+                    <dc:creator><![CDATA[{author}]]></dc:creator>
+                            <category><![CDATA[{category}]]></category>
+                        <guid isPermaLink="true">{guid}</guid>
+                            <description><![CDATA[{desc}]]></description>
+                            <content:encoded><![CDATA[]]>{content}</content:encoded>
+                </item>
+        """.format(
+            title=posts[post].metadata['title'],
+            url=site_meta['domain'] + posts_pre_slug + "/" + posts[post].metadata['slug'],
+            date=datetime.strftime(datetime.strptime(posts[post].metadata['date'], "%Y-%m-%d"), "%a, %d %b %Y %H:%M:%S") + " GMT",
+            author=site_meta['author'],
+            category=posts[post].metadata['tags'],
+            guid=site_meta['domain'] + posts_pre_slug + "/" + posts[post].metadata['slug'],
+            desc=posts[post].metadata['summary'],
+            content=posts[post].metadata['summary']
+        )
+        counter+=1
+        if counter == 5:
+            break
+
+    rss_string += """</channel>
+        </rss>
+    """
+
+    rss_file_path = 'output/rss.xml'
+
+    os.makedirs(os.path.dirname(rss_file_path), exist_ok=True)
+    with open(rss_file_path, 'w') as file:
+        file.write(rss_string)
+
+
 def copy_files(from_folder, to_folder):
     os.makedirs(os.path.dirname(to_folder + "/test.txt"), exist_ok=True)
     for file in os.listdir(from_folder):
@@ -84,6 +157,7 @@ def main():
         'logo_file' : config['DEFAULT']['Logo File'],
         'avatar' : config['DEFAULT']['Author Avatar Image'],
         'language' : config['DEFAULT']['Language'],
+        'language_full' : config['DEFAULT']['Language Full'],
         'actual_year' : datetime.now().year,
         'image_sizes' : config['DEFAULT']['Image Sizes'].split(',')[::-1] #reversed images sizes!!
     }
@@ -139,7 +213,6 @@ def main():
     categories = [page['category'] for page in pages_metadata]
     categories = list(dict.fromkeys(categories))
     categories = list(filter(None, categories))
-    print(categories)
     categories_helper = []
     for category in categories:
         category_url = category.lower()
@@ -263,6 +336,10 @@ def main():
     #generate sitemap
     print('Generating Sitemap')
     generate_sitemap(site_meta['domain'], PAGES, POSTS, site_meta['posts_pre_slug'])
+
+    #generate rss feed
+    print('Generating RSS feed')
+    generate_rss_feed(POSTS, site_meta['posts_pre_slug'], site_meta)
 
     # Copy Folders
     print('Copying static folders')

@@ -1,7 +1,7 @@
 ---
 title: Privacy Policy
 date: 2019-04-17
-category: Bread
+category:
 img: 
 summary: Privacy Policy for HappyParentsOnline.com
 slug: privacy-policy

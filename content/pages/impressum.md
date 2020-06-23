@@ -1,7 +1,7 @@
 ---
 title: Impressum
 date: 2019-04-17
-category: Bread
+category:
 img: 
 summary: Not quite french bread which has great taste and stays fresh for longer.
 slug: impressum

@@ -33,6 +33,8 @@ Erwin SSG 1.0
 - SEO (title and description in markdown)
 - RSS Feed generation
 - Categories for pages
+- favicon and icons: automatic generation of all needed sizes and formats, automatic meta tags
+- Webmanifest
 
 ## Install
 Install pipenv:

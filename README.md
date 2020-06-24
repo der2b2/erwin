@@ -2,6 +2,9 @@
 python static site generator for blogs
 (built and testet with python3)
 
+## Version
+Erwin SSG 1.0
+
 ## Table of contents
 * [Features](#features)
 * [Install](#install)
@@ -14,19 +17,22 @@ python static site generator for blogs
 
 ## Features
 - Templating with Jinja2
+- Markdown Content
 - SASS compiler
 - Twitter and Facebook Cards
-- simple image processing with automated generation of different file sizes for responsive images with picture tag
-- pipenv bundled
+- Simple image processing with automated generation of different file sizes for responsive images with picture tag
+- Pipenv bundled
 - reading time calculation
 - Sitemap generation
 - 3 Types of content:
   -- homepage
-  -- posts or articles
+  -- posts (or articles)
   -- pages (for static content like about, privacy police or disclaimer)
-- tags for posts
-- standard css framework is bootstrap, but can easily be changed to any or none
-- SEO
+- Tags for posts
+- Standard css framework is bootstrap, but can easily be changed to any or none
+- SEO (title and description in markdown)
+- RSS Feed generation
+- Categories for pages
 
 ## Install
 Install pipenv:

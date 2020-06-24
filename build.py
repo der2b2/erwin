@@ -116,52 +116,62 @@ def generate_rss_feed(posts, posts_pre_slug, site_meta):
     with open(rss_file_path, 'w') as file:
         file.write(rss_string)
 
+def generate_icons(site_meta):
+    os.makedirs(os.path.dirname('output/img/test.txt'), exist_ok=True)
+    file_path = "assets/static-img/" + site_meta['favicon']
+
+    for icon_size in tqdm(site_meta['icon_sizes']):
+        new_image = Image.open(file_path)
+        new_image.thumbnail((int(icon_size),int(icon_size)))
+        image_file_path_png = 'output/{name}-{size}x{size2}.png'.format(name="icon", size=icon_size, size2=icon_size)
+        new_image.save(image_file_path_png)
+
+    #Favicons
+    new_image = Image.open(file_path)
+    new_image.thumbnail((32,32))
+    new_image.save('output/favicon.ico')
+
+    new_image = Image.open(file_path)
+    new_image.thumbnail((16,16))
+    new_image.save('output/favicon-16x16.png')
+
+    new_image = Image.open(file_path)
+    new_image.thumbnail((32,32))
+    new_image.save('output/favicon-32x32.png')
+
 def generate_webmanifest(site_meta):
-    webmanifest_string = """{"name": "{name}",
-        "short_name": "{short_name}",
-        "start_url": ".",
-        "display": "standalone",
-        "background_color" : "#{bg}" ,
-        "theme_color": "#{bg2}",
-        "description": "{desc}",
-        "icons": [{
-            "src": "images/touch/homescreen48.png",
-            "sizes": "48x48",
-            "type": "image/png"
-        }, {
-            "src": "images/touch/homescreen72.png",
-            "sizes": "72x72",
-            "type": "image/png"
-        }, {
-            "src": "images/touch/homescreen96.png",
-            "sizes": "96x96",
-            "type": "image/png"
-        }, {
-            "src": "images/touch/homescreen144.png",
-            "sizes": "144x144",
-            "type": "image/png"
-        }, {
-            "src": "images/touch/homescreen168.png",
-            "sizes": "168x168",
-            "type": "image/png"
-        }, {
-            "src": "images/touch/homescreen192.png",
-            "sizes": "192x192",
-            "type": "image/png"
-        }, {
-            "src": "images/touch/homescreen512.png",
-            "sizes": "512x512",
-            "type": "image/png"
-        }],
-        }
+    webmanifest_string = """{{"name": "{name}",
+    "short_name": "{short_name}",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color" : "#{bg}" ,
+    "theme_color": "#{bg2}",
+    "description": "{desc}",
     """.format(
-            name=site_meta['site_name'],
-            short_name=site_meta['site_name'],
-            bg=site_meta['background_color'],
-            bg2=site_meta['background_color'],
-            desc=site_meta['site_claim'],
+        name=site_meta['site_name'],
+        short_name=site_meta['site_name'],
+        bg=site_meta['background_color'],
+        bg2=site_meta['background_color'],
+        desc=site_meta['site_claim'],
     )
-    webmanifest_file_path = 'output/site.webmanifest'
+
+    icons_string = '"icons": ['
+
+    counter = 1
+    for icon_size in site_meta['icon_sizes']:
+        icons_string += """{{
+            "src": "/icon-{}x{}.png",
+            "sizes": "{}x{}",
+            "type": "image/png"
+        }}""".format(icon_size,icon_size,icon_size,icon_size)
+        if counter < len(site_meta['icon_sizes']):
+            icons_string += ','
+        counter += 1
+
+    icons_string += ']'
+    webmanifest_string += icons_string
+    webmanifest_string += '}'
+    webmanifest_file_path = 'output/manifest.webmanifest'
 
     os.makedirs(os.path.dirname(webmanifest_file_path), exist_ok=True)
     with open(webmanifest_file_path, 'w') as file:
@@ -210,7 +220,9 @@ def main():
         'language_full' : config['DEFAULT']['Language Full'],
         'actual_year' : datetime.now().year,
         'background_color' : config['DEFAULT']['Background Color'],
-        'image_sizes' : config['DEFAULT']['Image Sizes'].split(',')[::-1] #reversed images sizes!!
+        'favicon' : config['DEFAULT']['Favicon File'],
+        'image_sizes' : config['DEFAULT']['Image Sizes'].split(',')[::-1], #reversed images sizes!!
+        'icon_sizes' : config['DEFAULT']['Icon Sizes'].split(',')
     }
 
     print("Building page Site with {}".format(site_meta['generator']))
@@ -395,6 +407,10 @@ def main():
     #generate web_manifest
     print('Generating Webmanifest')
     generate_webmanifest(site_meta)
+
+    #generate icons
+    print('Generating Icons')
+    generate_icons(site_meta)
 
     # Copy Folders
     print('Copying static folders')

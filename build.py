@@ -116,6 +116,56 @@ def generate_rss_feed(posts, posts_pre_slug, site_meta):
     with open(rss_file_path, 'w') as file:
         file.write(rss_string)
 
+def generate_webmanifest(site_meta):
+    webmanifest_string = """{"name": "{name}",
+        "short_name": "{short_name}",
+        "start_url": ".",
+        "display": "standalone",
+        "background_color" : "#{bg}" ,
+        "theme_color": "#{bg2}",
+        "description": "{desc}",
+        "icons": [{
+            "src": "images/touch/homescreen48.png",
+            "sizes": "48x48",
+            "type": "image/png"
+        }, {
+            "src": "images/touch/homescreen72.png",
+            "sizes": "72x72",
+            "type": "image/png"
+        }, {
+            "src": "images/touch/homescreen96.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        }, {
+            "src": "images/touch/homescreen144.png",
+            "sizes": "144x144",
+            "type": "image/png"
+        }, {
+            "src": "images/touch/homescreen168.png",
+            "sizes": "168x168",
+            "type": "image/png"
+        }, {
+            "src": "images/touch/homescreen192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }, {
+            "src": "images/touch/homescreen512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }],
+        }
+    """.format(
+            name=site_meta['site_name'],
+            short_name=site_meta['site_name'],
+            bg=site_meta['background_color'],
+            bg2=site_meta['background_color'],
+            desc=site_meta['site_claim'],
+    )
+    webmanifest_file_path = 'output/site.webmanifest'
+
+    os.makedirs(os.path.dirname(webmanifest_file_path), exist_ok=True)
+    with open(webmanifest_file_path, 'w') as file:
+        file.write(webmanifest_string)
 
 def copy_files(from_folder, to_folder):
     os.makedirs(os.path.dirname(to_folder + "/test.txt"), exist_ok=True)
@@ -159,6 +209,7 @@ def main():
         'language' : config['DEFAULT']['Language'],
         'language_full' : config['DEFAULT']['Language Full'],
         'actual_year' : datetime.now().year,
+        'background_color' : config['DEFAULT']['Background Color'],
         'image_sizes' : config['DEFAULT']['Image Sizes'].split(',')[::-1] #reversed images sizes!!
     }
 
@@ -340,6 +391,10 @@ def main():
     #generate rss feed
     print('Generating RSS feed')
     generate_rss_feed(POSTS, site_meta['posts_pre_slug'], site_meta)
+
+    #generate web_manifest
+    print('Generating Webmanifest')
+    generate_webmanifest(site_meta)
 
     # Copy Folders
     print('Copying static folders')

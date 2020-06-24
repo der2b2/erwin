@@ -1,5 +1,5 @@
 # Erwin SSG
-python static site generator for blogs
+Python static site generator for blogs or static pages
 (built and testet with python3)
 
 ## Version

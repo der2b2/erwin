@@ -10,6 +10,7 @@ from PIL import Image
 import time
 from tqdm import tqdm
 import re
+from _erwin import image_processing
 
 def sitemap_helper(url, lastmod, changefreq, priority):
     url_string = """<url>
@@ -115,29 +116,6 @@ def generate_rss_feed(posts, posts_pre_slug, site_meta):
     os.makedirs(os.path.dirname(rss_file_path), exist_ok=True)
     with open(rss_file_path, 'w') as file:
         file.write(rss_string)
-
-def generate_icons(site_meta):
-    os.makedirs(os.path.dirname('output/img/test.txt'), exist_ok=True)
-    file_path = "assets/static-img/" + site_meta['favicon']
-
-    for icon_size in tqdm(site_meta['icon_sizes']):
-        new_image = Image.open(file_path)
-        new_image.thumbnail((int(icon_size),int(icon_size)))
-        image_file_path_png = 'output/{name}-{size}x{size2}.png'.format(name="icon", size=icon_size, size2=icon_size)
-        new_image.save(image_file_path_png)
-
-    #Favicons
-    new_image = Image.open(file_path)
-    new_image.thumbnail((32,32))
-    new_image.save('output/favicon.ico')
-
-    new_image = Image.open(file_path)
-    new_image.thumbnail((16,16))
-    new_image.save('output/favicon-16x16.png')
-
-    new_image = Image.open(file_path)
-    new_image.thumbnail((32,32))
-    new_image.save('output/favicon-32x32.png')
 
 def generate_webmanifest(site_meta):
     webmanifest_string = """{{"name": "{name}",
@@ -410,7 +388,7 @@ def main():
 
     #generate icons
     print('Generating Icons')
-    generate_icons(site_meta)
+    image_processing.generate_icons(site_meta)
 
     # Copy Folders
     print('Copying static folders')
@@ -425,19 +403,9 @@ def main():
 
     #images
     print("Rendering image thumbnails")
-    os.makedirs(os.path.dirname('output/img/test.txt'), exist_ok=True)
-    for images in tqdm(os.listdir('assets/responsive-img')):
-        file_path = os.path.join('assets/responsive-img', images)
-
-        image_name = images.split(".")[0]
-
-        for image_size in tqdm(site_meta['image_sizes']):
-            new_image = Image.open(file_path)
-            new_image.thumbnail((int(image_size),int(image_size)))
-            image_file_path_webp = 'output/img/{name}-{size}.webp'.format(name=image_name, size=image_size)
-            image_file_path_jpg = 'output/img/{name}-{size}.jpg'.format(name=image_name, size=image_size)
-            new_image.save(image_file_path_webp, quality=50, method=0)
-            new_image.save(image_file_path_jpg, quality=50, optimize=True)
+    img_destination = 'output/img/'
+    img_from = 'assets/responsive-img'
+    image_processing.generate_responsive_images(img_from, img_destination, site_meta['image_sizes'])
 
     print()
     print("Yippie, site was build successfully")

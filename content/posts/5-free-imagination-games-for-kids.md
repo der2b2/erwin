@@ -1,7 +1,7 @@
 ---
 title: 5 Free Imagination Games for Kids
 date: 2020-05-18
-tags: Creative Games
+tags: Creative Games, Homeschooling
 img: photo-1518548044055-022077d5ae23.jpg
 summary: The following games don’t need tools or items. They can be played only with your imagination (and your body). Ideal for boring times on the road or at places where you don’t have enough space or tools.
 slug: 5-free-imagination-games-for-kids

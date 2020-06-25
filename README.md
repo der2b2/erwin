@@ -3,7 +3,7 @@ Python static site generator for blogs or static pages
 (built and testet with python3)
 
 ## Version
-Erwin SSG 1.0
+Erwin SSG 0.9
 
 ## Table of contents
 * [Features](#features)
@@ -80,7 +80,7 @@ Server runs on "localhost:8000"
 ```
 erwin-ssg
   /- assets    # all extra data
-    /- css     # main.css will be compiled and copied to /output/css
+    /- css     # main.css will be compiled and copied to /output/css, critical_main.css will be inlined
     /- fonts   # will be copied to /output/fonts
     /- js      # will be copied to /output/js
     /- responsive-img  # automatic thumbnail generation for all images in here, stored in /output/img

@@ -122,7 +122,6 @@ def main():
         for post_tag in post_tags:
             tags.append(post_tag.strip())
     tags = list(dict.fromkeys(tags))
-    print(tags)
     tags_helper = []
     for tag in tags:
         tags_helper.append({'name':tag, 'slug':helper.prepare_string_for_html(tag)})

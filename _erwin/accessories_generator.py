@@ -20,12 +20,12 @@ def generate_sitemap(domain,pages,posts, posts_pre_slug):
 
     #PAGES
     for pagec in pages:
-        sitemap_string += sitemap_helper("{}{}/{}".format(domain, "", pages[pagec].metadata['slug']), pages[pagec].metadata['date'], "monthly", 0.5)
+        sitemap_string += sitemap_helper("{}{}/{}/".format(domain, "", pages[pagec].metadata['slug']), pages[pagec].metadata['date'], "monthly", 0.5)
     
 
     #POSTS
     for post in posts:
-        sitemap_string += sitemap_helper("{}{}/{}".format(domain, posts_pre_slug, posts[post].metadata['slug']), posts[post].metadata['date'], "weekly", 0.8)
+        sitemap_string += sitemap_helper("{}{}/{}/".format(domain, posts_pre_slug, posts[post].metadata['slug']), posts[post].metadata['date'], "weekly", 0.8)
     
     sitemap_string += "</urlset>"
     sitemap_file_path = 'output/sitemap.xml'
@@ -84,7 +84,7 @@ def generate_rss_feed(posts, posts_pre_slug, site_meta):
                 </item>
         """.format(
             title=posts[post].metadata['title'],
-            url=site_meta['domain'] + posts_pre_slug + "/" + posts[post].metadata['slug'],
+            url=site_meta['domain'] + posts_pre_slug + "/" + posts[post].metadata['slug'] + "/",
             date=datetime.strftime(datetime.strptime(posts[post].metadata['date'], "%Y-%m-%d"), "%a, %d %b %Y %H:%M:%S") + " GMT",
             author=site_meta['author'],
             category=posts[post].metadata['tags'],

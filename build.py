@@ -86,6 +86,9 @@ def main():
 
         with open(file_path, 'r') as file:
             PAGES[markdown_page] = markdown(file.read(), extras=['metadata'])
+    PAGES = {
+        page: PAGES[page] for page in sorted(PAGES, key=lambda page: datetime.strptime(PAGES[page].metadata['date'], '%Y-%m-%d'), reverse=True)
+    }
     pages_metadata = [PAGES[page].metadata for page in PAGES]
 
     #Preparing Pages nav

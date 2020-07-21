@@ -1,14 +1,14 @@
 ---
 title: Privacy Policy
-date: 2019-04-17
+date: 2020-06-16
 category:
 img: 
-summary: Privacy Policy for HappyParentsOnline.com
+summary: Privacy Policy for Erwin SSG
 slug: privacy-policy
 ---
 
 ## Privacy Policy for HappyParentsOnline.com
-At happyparentsonline.com, accessible from [https://happyparentsonline.com](https://happyparentsonline.com), one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by happyparentsonline.com and how we use it.
+At happyparentsonline.com, accessible from [https://erwin-ssg.com](https://erwin-ssg.com), one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by happyparentsonline.com and how we use it.
 
 If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us.
 

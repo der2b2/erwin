@@ -10,7 +10,7 @@
     <title>{% block title %}{{site_meta.site_name}}{% endblock %}</title>
 
     <!-- Canonical -->
-    <link rel="canonical" href="{{site_meta.domain}}{% block canonical %}{% endblock %}">
+    <link rel="canonical" href="{{site_meta.domain}}{% block canonical %}{% endblock %}" />
 
     <!-- Google / Search Engine Tags -->
     <meta itemprop="name" content="{{ self.title() }}">
@@ -33,10 +33,10 @@
 
     <!-- Icons -->
     {% for icon_size in site_meta.icon_sizes %}
-        <link rel="apple-touch-icon" sizes="{{icon_size}}x{{icon_size}}" href="/icon-{{icon_size}}x{{icon_size}}.png">{% endfor %}
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/manifest.webmanifest">
+        <link rel="apple-touch-icon" sizes="{{icon_size}}x{{icon_size}}" href="/icon-{{icon_size}}x{{icon_size}}.png" />{% endfor %}
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
     <meta name="msapplication-TileColor" content="#{{site_meta.background_color}}">
     <meta name="apple-mobile-web-app-status-bar" content="#{{site_meta.background_color}}" />
     <meta name="theme-color" content="#{{site_meta.background_color}}">
@@ -48,9 +48,7 @@
     <link rel="sitemap" type="application/xml" href="/sitemap.xml"/>
     <!-- CSS -->
     <style type="text/css">{{ site_meta.critical_css }}</style>
-    <!--<script async="" src="https://www.google-analytics.com/analytics.js"></script>
-    <script data-ad-client="ca-pub-5635662834422343" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    -->
+    
 </head>
   <body>
     

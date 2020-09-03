@@ -1,12 +1,12 @@
-{% macro responsive_img_thumbnail_list(site_meta, posts) %}
+{% macro responsive_img_thumbnail_list(site_meta, posts, number_of_articles) %}
 <div class="row px-3">
-    {% for post in posts %}
-        <div class="col-xs-12 col-sm-6 col-lg-4 mb-4">
+    {% for post in posts[:number_of_articles] %}
+        <div class="col-xs-12 col-sm-6 col-md-4 mb-4">
             <div class="card">
                 <a href="{{site_meta.posts_pre_slug}}/{{ post.slug }}/">
                     <picture>
                         <source  type="image/webp" srcset="/img/{{post.img|replace('.jpg','')}}-{{site_meta.image_sizes[-1]}}.webp">
-                        <img class="card-img-top" src="/img/{{post.img|replace('.jpg','')}}-{{site_meta.image_sizes[-1]}}.jpg" alt="{{post.title}}">
+                        <img class="card-img-top" src="/img/{{post.img|replace('.jpg','')}}-{{site_meta.image_sizes[-1]}}.jpg" alt="{{post.title}}" title="{{post.title}}">
                     </picture>
                 </a>
                 <div class="card-body">
@@ -38,6 +38,6 @@
     {% for size in site_meta.image_sizes %}
         <source type="image/jpeg" media="(min-width:{{ size }}px)" srcset="/img/{{ image }}-{{size}}.jpg">
     {% endfor %}
-    <img class="img-fluid img-thumbnail" src="/img/{{ image }}-{{site_meta.image_sizes[-1]}}.jpg" alt="{{ alt }}" style="width:100%;">
+    <img class="img-fluid img-thumbnail" src="/img/{{ image }}-{{site_meta.image_sizes[-1]}}.jpg" alt="{{ alt }}" title="{{ alt }}" style="width:100%;">
 </picture>
 {%- endmacro %}

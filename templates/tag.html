@@ -13,6 +13,7 @@
 {% endblock %}
 
 {% block content %}
-    {{ images.responsive_img_thumbnail_list(site_meta=site_meta, posts=posts) }}
+    {{ images.responsive_img_thumbnail_list(site_meta=site_meta, posts=posts, number_of_articles=posts|length) }}
 {% endblock %}
+
 

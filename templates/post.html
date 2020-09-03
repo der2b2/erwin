@@ -2,7 +2,7 @@
 {% import "macros/images.html" as images %}
 
 {% block title %}{{ post.title }}{% endblock %}
-{% block description %}{{post.summary}}{% endblock %}
+{% block description %}{{post.description}}{% endblock %}
 {% block canonical %}{{site_meta.posts_pre_slug}}/{{post.slug}}/{% endblock %}
 {% block image %}{{site_meta.domain}}/img/{{ post.img }}-{{site_meta.image_sizes[0]}}.jpg{% endblock %}
 
@@ -28,6 +28,8 @@
     <div class="content-container">
     
         {{ post.content }}
-    
+        <br>
+        <hr>
+        <p></p>
     </div>
 {% endblock %}

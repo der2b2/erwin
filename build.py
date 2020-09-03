@@ -40,7 +40,9 @@ def main():
         'background_color' : config['DEFAULT']['Background Color'],
         'favicon' : config['DEFAULT']['Favicon File'],
         'image_sizes' : config['DEFAULT']['Image Sizes'].split(',')[::-1], #reversed images sizes!!
-        'icon_sizes' : config['DEFAULT']['Icon Sizes'].split(',')
+        'icon_sizes' : config['DEFAULT']['Icon Sizes'].split(','),
+        'pagination' : True if config['DEFAULT']['Pagination'] == 'yes' else False,
+        'articles_on_homepage' : int(config['DEFAULT']['Articles on homepage']) if config['DEFAULT']['Articles on homepage'] != "" else None
     }
 
     print("Building page Site with {}".format(site_meta['generator']))
@@ -76,7 +78,18 @@ def main():
     }
     for post in POSTS:
         POSTS[post].metadata['reading_time'] = helper.reading_time(POSTS[post])
+        ulist = ["\"", "\'", "&"]
+        description = POSTS[post].metadata['summary']
+        for ul in ulist:
+            description = description.replace(ul, "")
+        POSTS[post].metadata['description'] = description
+        if POSTS[post].metadata['slug'] != "":
+            pass
+        else:
+            POSTS[post].metadata['slug'] = helper.prepare_string_for_html(POSTS[post].metadata['title'])
     posts_metadata = [POSTS[post].metadata for post in POSTS]
+    
+        
 
     # Reading pages
     print("Preparing pages")
@@ -86,9 +99,16 @@ def main():
 
         with open(file_path, 'r') as file:
             PAGES[markdown_page] = markdown(file.read(), extras=['metadata'])
-    PAGES = {
-        page: PAGES[page] for page in sorted(PAGES, key=lambda page: datetime.strptime(PAGES[page].metadata['date'], '%Y-%m-%d'), reverse=True)
-    }
+    for page in PAGES:
+        ulist = ["\"", "\'", "&"]
+        description = PAGES[page].metadata['summary']
+        for ul in ulist:
+            description = description.replace(ul, "")
+        PAGES[page].metadata['description'] = description
+        if PAGES[page].metadata['slug'] != "":
+            pass
+        else:
+            PAGES[page].metadata['slug'] = helper.prepare_string_for_html(PAGES[page].metadata['title'])
     pages_metadata = [PAGES[page].metadata for page in PAGES]
 
     #Preparing Pages nav
@@ -141,16 +161,53 @@ def main():
     tag_template = env.get_template('tag.html')
 
     #rendering homepage
+    my_pagination = []
+    pag_numbers = []
+    homepage_posts = posts_metadata
+    if site_meta['pagination']:
+        pag_item = []
+        counter = 0
+        for post in posts_metadata:
+            pag_item.append(post)
+            counter += 1
+            if counter % site_meta['articles_on_homepage'] == 0:
+                my_pagination.append(pag_item)
+                pag_item = []
+                counter = 0
+        if len(pag_item) > 0:
+            my_pagination.append(pag_item)
+        homepage_posts = my_pagination[0]
+        
+        for pag in range(len(my_pagination)-1):
+            pag_numbers.append(pag+2)
+            
     print("Rendering Homepage")
-    home_html = home_template.render(posts=posts_metadata, site_meta=site_meta)
+    home_html = home_template.render(posts=homepage_posts, site_meta=site_meta, pagination_numbers=pag_numbers)
     #writing homepage
     with open('output/index.html', 'w') as file:
         file.write(home_html)
+
+    if site_meta['pagination']:
+        
+        pag_counter = 2
+        for pag_sites in my_pagination[1:]:
+            pag_html = home_template.render(posts=pag_sites, site_meta=site_meta, pagination_number=pag_counter, pagination_numbers=pag_numbers)
+            #writing homepage
+            pag_file_path = 'output/{}/index.html'.format(pag_counter)
+            os.makedirs(os.path.dirname(pag_file_path), exist_ok=True)
+            with open(pag_file_path, 'w') as file:
+                file.write(pag_html)
+            pag_counter += 1
 
     #writing posts
     print("Writing Posts")
     for post in tqdm(POSTS):
         post_metadata = POSTS[post].metadata
+
+        if post_metadata['slug'] != "":
+            m_slug = post_metadata['slug']
+        else:
+            m_slug = helper.prepare_string_for_html(post_metadata['title'])
 
         #read meta
         post_data = {
@@ -158,7 +215,8 @@ def main():
             'title': post_metadata['title'],
             'date': post_metadata['date'],
             'summary': post_metadata['summary'],
-            'slug': post_metadata['slug'],
+            'description': post_metadata['description'],
+            'slug': m_slug,
             'img': post_metadata['img'].split('.')[0],
             'word_count' : helper.count_words(POSTS[post]),
             'reading_time' : post_metadata['reading_time']
@@ -201,6 +259,7 @@ def main():
             'title': page_metadata['title'],
             'date': page_metadata['date'],
             'summary': page_metadata['summary'],
+            'description': page_metadata['description'],
             'slug': page_metadata['slug'],
             'category': page_metadata['category'],
             'img': page_metadata['img'].split('.')[0]

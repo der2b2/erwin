@@ -1,6 +1,10 @@
 {% extends "layout.html" %}
 {% import "macros/images.html" as images %}
 
+{% if pagination_number %}
+{% block canonical %}/{{pagination_number}}/{% endblock %}
+{% endif %}
+
 
 {% block headline %}
     <h1>{{site_meta.site_name}}</h1>
@@ -12,6 +16,29 @@
 
 {% block content %}
     
-        {{ images.responsive_img_thumbnail_list(site_meta=site_meta, posts=posts) }}
+        {{ images.responsive_img_thumbnail_list(site_meta=site_meta, posts=posts, number_of_articles=site_meta.articles_on_homepage) }}
+
+        {% if site_meta.pagination %}
+        <nav aria-label="Pagination">
+        <ul class="pagination justify-content-center">
+            {% if not pagination_number %}
+            <li class="page-item active"><a class="page-link" href="/">1</a></li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="/">1</a></li>
+            {% endif %}
+            {% if pagination_numbers %}
+            {% for pag in pagination_numbers %}
+                {% if pag == pagination_number %}
+                    <li class="page-item active"><a class="page-link" href="/{{pag}}/">{{pag}}</a></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="/{{pag}}/">{{pag}}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% endif %}
+        </ul>
+        </nav>
+        {% endif %}
+
         
 {% endblock %}
+

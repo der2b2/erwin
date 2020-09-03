@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{site_meta.language}}">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -20,7 +20,7 @@
     <!-- Facebook Meta Tags -->
     <meta property="og:url" content="{{site_meta.domain}}{{ self.canonical() }}">
     <meta property="og:type" content="article">
-    <meta property="og:locale" content="en_US">
+    <meta property="og:locale" content="{{site_meta.language_full}}">
     <meta property="og:title" content="{{ self.title() }}">
     <meta property="og:description" content="{{ self.description() }}">
     <meta property="og:image" content="{{ self.image() }}">
@@ -55,24 +55,56 @@
         
         <header class="blog-header pt-3 pb-xs-3 pb-md-0 mb-4">
             <div class="container">
-            <div class="row flex-nowrap justify-content-between align-items-center">
-                <div class="col-4 pt-1 ml-4">
-                    <a class="blog-header-logo text-dark" href="/">
-                        <img src="/img/{{site_meta.logo_file}}" alt="{{ self.title() }}" /></a>
-                    </div>
-                <div class="col-4 d-flex justify-content-end align-items-center mr-4 social">
-                    {% if site_meta.twitter %}
-                    <a href="https://twitter.com/{{site_meta.twitter}}" target="_blank" rel="noreferrer">
-                        <img src="/img/twitter.svg" width="20" height="20" alt="Twitter">
-                    </a>
-                    {% endif %}
-                    {% if site_meta.facebook %}
-                    <a class="ml-3" href="https://facebook.com/{{site_meta.facebook}}" target="_blank" rel="noreferrer">
-                        <img src="/img/facebook.svg" width="20" height="20" alt="Facebook">
-                    </a>
-                    {% endif %}
-                </div>
-              </div>
+            
+                
+                    <nav class="navbar navbar-expand-lg navbar-dark">
+                        <a class="blog-header-logo text-dark navbar-brand" href="/">
+                            <img src="/img/{{site_meta.logo_file}}" alt="{{ self.title() }}" /></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                        </button>
+                    
+                        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                            {% for tager in site_meta.tags_nav %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/{{tager.slug}}/">{{tager.name}}</a>
+                            </li>
+                            {% endfor %}
+                            {% for category in site_meta.category_nav %}
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                        {{category.cat_meta.name}}
+                                    </a>
+                                    <div class="dropdown-menu">
+                                    {% for c_page in category.cat_pages %}
+                                        <a class="dropdown-item" href="/{{c_page.slug}}/">{{c_page.title}}</a>
+                                    {% endfor %}
+                                    </div>
+                              </li>
+                            {% endfor %}
+                            {% for page in site_meta.pages_nav %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/{{page.slug}}/">{{page.name}}</a>
+                            </li>
+                            {% endfor %}
+                            {% if site_meta.twitter %}
+                            <li>
+                            <a href="https://twitter.com/{{site_meta.twitter}}" target="_blank" rel="noreferrer">
+                                <img src="/img/twitter.svg" width="20" height="20" alt="Twitter">
+                            </a></li>
+                            {% endif %}
+                            {% if site_meta.facebook %}
+                            <li>
+                            <a class="ml-3" href="https://facebook.com/{{site_meta.facebook}}" target="_blank" rel="noreferrer">
+                                <img src="/img/facebook.svg" width="20" height="20" alt="Facebook">
+                            </a></li>
+                            {% endif %}
+                        </ul>
+                        
+                        </div>
+                    </nav>
+                
             
                 
                 
@@ -87,45 +119,13 @@
             
             
       
-            <nav class="navbar navbar-expand-lg navbar-dark">
-                
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                </button>
             
-                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    {% for tager in site_meta.tags_nav %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="/{{tager.slug}}/">{{tager.name}}</a>
-                    </li>
-                    {% endfor %}
-                    {% for category in site_meta.category_nav %}
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                                {{category.cat_meta.name}}
-                            </a>
-                            <div class="dropdown-menu">
-                            {% for c_page in category.cat_pages %}
-                                <a class="dropdown-item" href="/{{c_page.slug}}/">{{c_page.title}}</a>
-                            {% endfor %}
-                            </div>
-                      </li>
-                    {% endfor %}
-                    {% for page in site_meta.pages_nav %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="/{{page.slug}}/">{{page.name}}</a>
-                    </li>
-                    {% endfor %}
-                </ul>
-                
-                </div>
-            </nav>
         </div>
         </header>
     
     <div class="container">
     {% block content %} {% endblock %}
+    
     </div>
     <footer class="pt-3 pb-3">
         <div class="container px-4 py-2">

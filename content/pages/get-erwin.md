@@ -3,15 +3,11 @@ title: Get Erwin
 date: 2020-06-20
 category:
 img: 
-summary: Not quite french bread which has great taste and stays fresh for longer.
+summary: How to download the Erwin-SSG static site generator
 slug: get-erwin
 ---
 
-Bastian Schröder
+Get Erwin on github:
+[Erwin SSG Github Page](https://github.com/der2b2/erwin)
 
-Buchenweg 12  
-58540 Meinerzhagen  
-Germany
-
-Contact:  
-b.schroeder@medienspot.de
+See [installation instructions](/install) for more info.

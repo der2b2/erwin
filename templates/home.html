@@ -15,7 +15,29 @@
 
 
 {% block content %}
-    
+<h2 class="text-center">Features</h2>
+        <div class="row">
+            
+            <div class="col-xs-12 col-sm-12 col-md-6 mb-4">
+                <div class="card>
+                    <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Cras justo odio</li>
+                    <li class="list-group-item">Dapibus ac facilisis in</li>
+                    <li class="list-group-item">Vestibulum at eros</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 mb-4">
+                <div class="card">
+                    <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Cras justo odio</li>
+                    <li class="list-group-item">Dapibus ac facilisis in</li>
+                    <li class="list-group-item">Vestibulum at eros</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
         {{ images.responsive_img_thumbnail_list(site_meta=site_meta, posts=posts, number_of_articles=site_meta.articles_on_homepage) }}
 
         {% if site_meta.pagination %}

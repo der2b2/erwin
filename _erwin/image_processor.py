@@ -49,9 +49,12 @@ def generate_responsive_images(from_path, to_path, image_sizes):
     my_que = queue.Queue()
     success = ""
 
-    for images in os.listdir(from_path):
-        start_new_thread(generate_responsive_images_helper, (my_que,from_path, to_path, images, image_sizes,))
-        
+    counter = 1
+    thread_number = 1
     for images in tqdm(os.listdir(from_path)):
-        success = my_que.get()
+        start_new_thread(generate_responsive_images_helper, (my_que,from_path, to_path, images, image_sizes,))
 
+        if counter % thread_number == 0:
+           for number in range(thread_number):
+             success = my_que.get()
+        counter += 1

@@ -1,7 +1,7 @@
 import http.server
 import socketserver
 
-PORT = 8000
+PORT = 8050
 
 def handler_from(directory):
     def _init(self, *args, **kwargs):

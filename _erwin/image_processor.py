@@ -3,6 +3,7 @@ from tqdm import tqdm
 from PIL import Image
 import threading, queue
 from _thread import start_new_thread
+import psutil
 
 def foo():
     print("image foo")
@@ -49,8 +50,12 @@ def generate_responsive_images(from_path, to_path, image_sizes):
     my_que = queue.Queue()
     success = ""
 
+    #Compute images in threads, thread number depends on available RAM
     counter = 1
     thread_number = 1
+    mb_available = int(psutil.virtual_memory().available/1000000) - 250
+    thread_number = max(1, int(mb_available / 200))
+    
     for images in tqdm(os.listdir(from_path)):
         start_new_thread(generate_responsive_images_helper, (my_que,from_path, to_path, images, image_sizes,))
 

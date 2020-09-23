@@ -12,6 +12,7 @@ libsass = "*"
 rcssmin = "*"
 pillow = "*"
 tqdm = "*"
+psutil = "*"
 
 [requires]
 python_version = "3.8"

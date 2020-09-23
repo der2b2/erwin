@@ -18,10 +18,11 @@
     <p>
         {{page.summary}}
     </p>
-    </div>
     {% if page.img %}
         {{ images.responsive_img(site_meta=site_meta, image=page.img, alt=page.title) }}
     {% endif %}
+    </div>
+    
 
     <div class="content-container">
     

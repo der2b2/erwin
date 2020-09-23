@@ -19,10 +19,11 @@
         <small>{{ post.reading_time }} min read</small>
     </div>
     <p>{{post.summary}}</p>
-</div>
     {% if post.img %}
         {{ images.responsive_img(site_meta=site_meta, image=post.img, alt=post.title) }}
     {% endif %}
+</div>
+    
 
     
     <div class="content-container">

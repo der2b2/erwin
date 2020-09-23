@@ -17,6 +17,7 @@ Last 5 posts are included, usefull for blogs and news.
 ## Social Cards
 
 Metadata for sharing on social platforms are included:
+
 - Twitter card
 - Facebook Card
 - Google Metadata

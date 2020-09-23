@@ -27,7 +27,7 @@ Starts a simple local Webserver for testing. The webserver just serves the store
 
     python serve.py
 
-Server runs on "localhost:8000"
+Server runs on "localhost:8050"
 
 ## Structure
 

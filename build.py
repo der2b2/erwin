@@ -99,6 +99,12 @@ def main():
 
         with open(file_path, 'r') as file:
             PAGES[markdown_page] = markdown(file.read(), extras=['metadata'])
+
+    # Sorting Pages
+    PAGES = {
+        page: PAGES[page] for page in sorted(PAGES, key=lambda page: datetime.strptime(PAGES[page].metadata['date'], '%Y-%m-%d'), reverse=True)
+    }
+
     for page in PAGES:
         ulist = ["\"", "\'", "&"]
         description = PAGES[page].metadata['summary']
@@ -314,3 +320,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

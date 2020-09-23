@@ -10,7 +10,7 @@ def handler_from(directory):
                 (http.server.SimpleHTTPRequestHandler,),
                 {'__init__': _init, 'directory': directory})
 
-with socketserver.TCPServer(("", PORT), handler_from("output")) as httpd:
+with socketserver.TCPServer(("0.0.0.0", PORT), handler_from("output")) as httpd:
     print("serving at port", PORT)
     print("Close Server with CTRL-c")
     try: 

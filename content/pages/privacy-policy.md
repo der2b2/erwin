@@ -7,7 +7,7 @@ summary: Privacy Policy for Erwin SSG
 slug: privacy-policy
 ---
 
-## Privacy Policy for HappyParentsOnline.com
+## Privacy Policy for erwin-ssg.com
 At happyparentsonline.com, accessible from [https://erwin-ssg.com](https://erwin-ssg.com), one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by happyparentsonline.com and how we use it.
 
 If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us.

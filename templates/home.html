@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
 {% import "macros/images.html" as images %}
 
-{% if pagination_number %}
-{% block canonical %}/{{pagination_number}}/{% endblock %}
-{% endif %}
+
+{% block canonical %}{% if (pagination_number is defined) and pagination_number %}/{{pagination_number}}/{% endif %}{% endblock %}
+
 
 
 {% block headline %}

@@ -291,6 +291,10 @@ def main():
     #generate web_manifest
     print('Generating Webmanifest')
     accessories_generator.generate_webmanifest(site_meta)
+    
+    #generate robots.txt
+    print('Generating Robots.txt')
+    accessories_generator.generate_robots_txt(site_meta)
 
     #generate icons
     print('Generating Icons')

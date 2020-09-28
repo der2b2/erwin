@@ -143,3 +143,11 @@ def generate_webmanifest(site_meta):
     os.makedirs(os.path.dirname(webmanifest_file_path), exist_ok=True)
     with open(webmanifest_file_path, 'w') as file:
         file.write(webmanifest_string)
+
+def generate_robots_txt(site_meta):
+    robots_string = "Sitemap: " + site_meta['domain'] + "/sitemap.xml"
+    robots_file_path = 'output/robots.txt'
+    
+    os.makedirs(os.path.dirname(robots_file_path), exist_ok=True)
+    with open(robots_file_path, 'w') as file:
+        file.write(robots_string)

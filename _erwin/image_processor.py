@@ -31,7 +31,7 @@ def generate_icons(site_meta):
     new_image.thumbnail((32,32))
     new_image.save('output/favicon-32x32.png')
 
-def generate_responsive_images_helper(my_que, from_path, to_path, images, image_sizes):
+def generate_responsive_images_helper(from_path, to_path, images, image_sizes, my_que=None):
     file_path = os.path.join(from_path, images)
 
     image_name = images.split(".")[0]
@@ -43,11 +43,12 @@ def generate_responsive_images_helper(my_que, from_path, to_path, images, image_
         image_file_path_jpg = to_path + '{name}-{size}.jpg'.format(name=image_name, size=image_size)
         new_image.save(image_file_path_webp, quality=50, method=0)
         new_image.save(image_file_path_jpg, quality=50, optimize=True)
-    my_que.put("Done")
+    if my_que:
+        my_que.put("Done")
 
 def generate_responsive_images(from_path, to_path, image_sizes):
     os.makedirs(os.path.dirname(to_path + 'test.txt'), exist_ok=True)
-    my_que = queue.Queue()
+    my_que = None
     success = ""
 
     #Compute images in threads, thread number depends on available RAM
@@ -56,10 +57,16 @@ def generate_responsive_images(from_path, to_path, image_sizes):
     mb_available = int(psutil.virtual_memory().available/1000000) - 250
     thread_number = max(1, int(mb_available / 200))
     
+    if thread_number > 1:
+        my_que = queue.Queue()
+    
     for images in tqdm(os.listdir(from_path)):
-        start_new_thread(generate_responsive_images_helper, (my_que,from_path, to_path, images, image_sizes,))
+        if thread_number == 1:
+            generate_responsive_images_helper(from_path, to_path, images, image_sizes, my_que)
+        else:
+          start_new_thread(generate_responsive_images_helper, (from_path, to_path, images, image_sizes, my_que,))
 
-        if counter % thread_number == 0:
-           for number in range(thread_number):
-             success = my_que.get()
-        counter += 1
+          if counter % thread_number == 0:
+             for number in range(thread_number):
+               success = my_que.get()
+          counter += 1

@@ -1,6 +1,7 @@
 import os
 from datetime import datetime
 
+
 def sitemap_helper(url, lastmod, changefreq, priority):
     url_string = """<url>
         <loc>{}</loc>
@@ -11,28 +12,36 @@ def sitemap_helper(url, lastmod, changefreq, priority):
 
     return url_string
 
-def generate_sitemap(domain,pages,posts, posts_pre_slug):
+
+def generate_sitemap(domain, pages, posts, posts_pre_slug):
     sitemap_string = """<?xml version="1.0" encoding="UTF-8"?>
         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">"""
 
     #Domain
-    sitemap_string += sitemap_helper(domain, datetime.now().strftime('%Y-%m-%d'), "weekly", 1.0)
+    sitemap_string += sitemap_helper(domain,
+                                     datetime.now().strftime('%Y-%m-%d'),
+                                     "weekly", 1.0)
 
     #PAGES
     for pagec in pages:
-        sitemap_string += sitemap_helper("{}{}/{}/".format(domain, "", pages[pagec].metadata['slug']), pages[pagec].metadata['date'], "monthly", 0.5)
-    
+        sitemap_string += sitemap_helper(
+            "{}{}/{}/".format(domain, "", pages[pagec].metadata['slug']),
+            pages[pagec].metadata['date'], "monthly", 0.5)
 
     #POSTS
     for post in posts:
-        sitemap_string += sitemap_helper("{}{}/{}/".format(domain, posts_pre_slug, posts[post].metadata['slug']), posts[post].metadata['date'], "weekly", 0.8)
-    
+        sitemap_string += sitemap_helper(
+            "{}{}/{}/".format(domain, posts_pre_slug,
+                              posts[post].metadata['slug']),
+            posts[post].metadata['date'], "weekly", 0.8)
+
     sitemap_string += "</urlset>"
     sitemap_file_path = 'output/sitemap.xml'
 
     os.makedirs(os.path.dirname(sitemap_file_path), exist_ok=True)
     with open(sitemap_file_path, 'w') as file:
         file.write(sitemap_string)
+
 
 def generate_rss_feed(posts, posts_pre_slug, site_meta):
     rss_string = """<?xml version="1.0" encoding="UTF-8"?>
@@ -60,15 +69,14 @@ def generate_rss_feed(posts, posts_pre_slug, site_meta):
             
             
             
-    """.format(
-        site_title=site_meta['site_name'],
-        feed_url=site_meta['domain'] + "/rss.xml",
-        domain=site_meta['domain'],
-        site_description=site_meta['site_claim'],
-        last_build_date=datetime.strftime(datetime.now(), "%a, %d %b %Y %H:%M:%S") + " GMT",
-        language=site_meta['language_full'],
-        generator=site_meta['generator']
-    )
+    """.format(site_title=site_meta['site_name'],
+               feed_url=site_meta['domain'] + "/rss.xml",
+               domain=site_meta['domain'],
+               site_description=site_meta['site_claim'],
+               last_build_date=datetime.strftime(
+                   datetime.now(), "%a, %d %b %Y %H:%M:%S") + " GMT",
+               language=site_meta['language_full'],
+               generator=site_meta['generator'])
 
     counter = 0
     for post in posts:
@@ -84,15 +92,18 @@ def generate_rss_feed(posts, posts_pre_slug, site_meta):
                 </item>
         """.format(
             title=posts[post].metadata['title'],
-            url=site_meta['domain'] + posts_pre_slug + "/" + posts[post].metadata['slug'] + "/",
-            date=datetime.strftime(datetime.strptime(posts[post].metadata['date'], "%Y-%m-%d"), "%a, %d %b %Y %H:%M:%S") + " GMT",
+            url=site_meta['domain'] + posts_pre_slug + "/" +
+            posts[post].metadata['slug'] + "/",
+            date=datetime.strftime(
+                datetime.strptime(posts[post].metadata['date'], "%Y-%m-%d"),
+                "%a, %d %b %Y %H:%M:%S") + " GMT",
             author=site_meta['author'],
             category=posts[post].metadata['tags'],
-            guid=site_meta['domain'] + posts_pre_slug + "/" + posts[post].metadata['slug'],
+            guid=site_meta['domain'] + posts_pre_slug + "/" +
+            posts[post].metadata['slug'],
             desc=posts[post].metadata['summary'],
-            content=posts[post].metadata['summary']
-        )
-        counter+=1
+            content=posts[post].metadata['summary'])
+        counter += 1
         if counter == 5:
             break
 
@@ -105,6 +116,7 @@ def generate_rss_feed(posts, posts_pre_slug, site_meta):
     os.makedirs(os.path.dirname(rss_file_path), exist_ok=True)
     with open(rss_file_path, 'w') as file:
         file.write(rss_string)
+
 
 def generate_webmanifest(site_meta):
     webmanifest_string = """{{"name": "{name}",
@@ -130,7 +142,7 @@ def generate_webmanifest(site_meta):
             "src": "/icon-{}x{}.png",
             "sizes": "{}x{}",
             "type": "image/png"
-        }}""".format(icon_size,icon_size,icon_size,icon_size)
+        }}""".format(icon_size, icon_size, icon_size, icon_size)
         if counter < len(site_meta['icon_sizes']):
             icons_string += ','
         counter += 1
@@ -144,10 +156,11 @@ def generate_webmanifest(site_meta):
     with open(webmanifest_file_path, 'w') as file:
         file.write(webmanifest_string)
 
+
 def generate_robots_txt(site_meta):
     robots_string = "Sitemap: " + site_meta['domain'] + "/sitemap.xml"
     robots_file_path = 'output/robots.txt'
-    
+
     os.makedirs(os.path.dirname(robots_file_path), exist_ok=True)
     with open(robots_file_path, 'w') as file:
         file.write(robots_string)

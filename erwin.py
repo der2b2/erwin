@@ -1,8 +1,8 @@
 from _erwin import main
 import sys
 
-def main(argv):
+def run(argv):
     main.run(argv)
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    run(sys.argv[1:])

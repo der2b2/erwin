@@ -8,6 +8,12 @@ def copy_files(from_folder, to_folder):
     for file in os.listdir(from_folder):
         shutil.copy(from_folder + "/" + file, to_folder)
 
+def copy_file(from_file, to_file):
+    if os.path.isfile(to_file):
+        print("File " + to_file + " already exists, aborted")
+    else:
+        shutil.copy(from_file, to_file)
+
 def copy_folder(src, dest):
     shutil.copytree(src, dest)
 

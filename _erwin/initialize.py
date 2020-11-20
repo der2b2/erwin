@@ -12,4 +12,9 @@ def run_init():
         'to': 'templates'
     }]
     for folder in folder_list:
-        helper.copy_folder(folder['from'], folder['to'])
+        try:
+          helper.copy_folder(folder['from'], folder['to'])
+        except:
+          print("Folder /" + folder['to'] + "/ already exists, initializing aborted to prevent data loss")
+    
+    helper.copy_file('_erwin/init_data/site_config.ini', 'site_config.ini')

@@ -7,27 +7,32 @@ summary: This site explains the basic usage for the Erwin static site generator
 slug: run
 ---
 
-## Usage
-There are three scripts that can be run:
+There are four scripts that can be run:
 
-### clean.py
+## init
+After install, initialize erwin site structure with:
+
+    python erwin.py init
+
+
+## clean
 Clean the output folder, basically erases the complete output folder to get rid of old files
 
-    python clean.py
+    python erwin.py clean
 
 
-### build.py
+## build
 This script builds the whole website and stores it ready for deploying into the output folder
 
-    python build.py
+    python erwin.py build
 
 
-### serve.py
+## serve
 Starts a simple local Webserver for testing. The webserver just serves the stored files from the build script.
 
-    python serve.py
+    python erwin.py serve
 
-Server runs on "localhost:8050"
+Server runs on "localhost:5050", port can be changed in site_config.ini
 
 ## Structure
 

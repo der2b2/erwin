@@ -8,6 +8,8 @@ def copy_files(from_folder, to_folder):
     for file in os.listdir(from_folder):
         shutil.copy(from_folder + "/" + file, to_folder)
 
+def copy_folder(src, dest):
+    shutil.copytree(src, dest)
 
 def clean_html(raw_html):
     cleanr = re.compile('<.*?>')

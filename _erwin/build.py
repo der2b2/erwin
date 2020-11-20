@@ -203,7 +203,7 @@ def main():
 
     #loading templates
     print("Loading Templates")
-    env = Environment(loader=PackageLoader('build', 'templates'))
+    env = Environment(loader=PackageLoader('erwin', 'templates'))
     home_template = env.get_template('home.html')
     post_template = env.get_template('post.html')
     page_template = env.get_template('page.html')

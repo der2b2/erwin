@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% import "macros/images.html" as images %}
+
+{% block title %}{{ post.title }}{% endblock %}
+{% block description %}{{post.description}}{% endblock %}
+{% block canonical %}{{site_meta.posts_pre_slug}}/{{post.slug}}/{% endblock %}
+{% block image %}{{site_meta.domain}}/img/{{ post.img }}-{{site_meta.image_sizes[0]}}.jpg{% endblock %}
+
+{% block content %}
+    <div class="content-container">
+    <h1>{{ post.title }}</h1>
+    
+    
+    <div class="row flex-nowrap justify-content-between align-items-center ml-1 mr-1 mb-4">
+        <div>    
+            <img src="/img/{{ site_meta.avatar }}" width=32 height=32 class="rounded-circle" alt="{{ site_meta.author }}">
+            <small class="ml-1">{{ site_meta.author }}</small>
+        </div>
+        <small>{{ post.reading_time }} min read</small>
+    </div>
+    <p>{{post.summary}}</p>
+    {% if post.img %}
+        {{ images.responsive_img(site_meta=site_meta, image=post.img, alt=post.title) }}
+    {% endif %}
+</div>
+    
+
+    
+    <div class="content-container">
+    
+        {{ post.content }}
+        <br>
+        <hr>
+        <p></p>
+    </div>
+{% endblock %}

@@ -1,6 +1,7 @@
 import os
 import re
 import shutil
+import requests
 
 
 def copy_files(from_folder, to_folder):
@@ -51,3 +52,9 @@ def prepare_string_for_html(input_string):
     for char in chars:
         url = url.replace(char, chars[char])
     return url
+
+def get_release_data():
+    response = requests.get("https://api.github.com/repos/der2b2/erwin/releases/latest")
+    zip_url = response.json()['html_url']
+    zip_url = zip_url.replace("releases/tag", "archive") + ".zip"
+    print(zip_url)

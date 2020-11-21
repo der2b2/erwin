@@ -13,6 +13,7 @@ rcssmin = "*"
 pillow = "*"
 tqdm = "*"
 psutil = "*"
+requests = "*"
 
 [requires]
 python_version = "3.8"

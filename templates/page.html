@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% import "macros/images.html" as images %}
+
+{% block title %}{{ page.title }}{% endblock %}
+{% block description %}{{page.description}}{% endblock %}
+{% block canonical %}/{{page.slug}}/{% endblock %}
+{% block headline %}
+    <h1>{{site_meta.site_name}}</h1>
+{% endblock %}
+{% block headclaim %}
+    <h2>{{ site_meta.site_claim }}</h2>
+{% endblock %}
+
+{% block content %}
+<div class="content-container">
+    
+    <h1>{{ page.title }}</h1>
+    <p>
+        {{page.summary}}
+    </p>
+    {% if page.img %}
+        {{ images.responsive_img(site_meta=site_meta, image=page.img, alt=page.title) }}
+    {% endif %}
+    </div>
+    
+
+    <div class="content-container">
+    
+        {{ page.content }}
+    
+    </div>
+
+{% endblock %}

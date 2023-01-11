@@ -4,10 +4,10 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}{{site_meta.site_name}}{% endblock %}</title>
     <meta name="description" content="{% block description %}{{ site_meta.site_claim }}{% endblock %}">
     <meta name="author" content="{{site_meta.author}}">
     <meta name="generator" content="{{site_meta.generator}}">
-    <title>{% block title %}{{site_meta.site_name}}{% endblock %}</title>
 
     <!-- Canonical -->
     <link rel="canonical" href="{{site_meta.domain}}{% block canonical %}{% endblock %}" />

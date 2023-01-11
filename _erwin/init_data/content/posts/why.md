@@ -9,7 +9,7 @@ slug: importance-of-screen-time
 
 ## Other static site generators
 
-Over the time i've worked with severall other static site generators. Mostly with gatsby.
+Over the time i've worked with several other static site generators. Mostly with gatsby.
 
 I think gatsby is great for complex sites, i liked working with it on several projects. But i always thought, that for a simple blog or corporate site, gatsby is way to complex.
 
